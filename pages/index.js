@@ -1,11 +1,45 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import dynamic from 'next/dynamic';
 
+// added resilientdb stuff
+import TransactionForm from 'components/ResilientDB/TransactionForm.js';
+import Loader from 'components/ResilientDB/Loader.js';
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Index() {
+    const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [token, setToken] = useState(null);
+    const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
+
+    useEffect(() => {
+      const storedToken = sessionStorage.getItem('token');
+      if (storedToken) {
+        setToken(storedToken);
+        setIsAuthenticated(true);
+      }
+    }, []);
+
+    const handleLogin = (authToken) => {
+      setIsLoadingAfterLogin(true);
+      setToken(authToken);
+      sessionStorage.setItem('token', authToken);
+
+      setTimeout(() => {
+        setIsAuthenticated(true);
+        setIsLoadingAfterLogin(false);
+      }, 2000);
+    };
+
+    const handleLogout = () => {
+      setIsAuthenticated(false);
+      setToken(null);
+      sessionStorage.removeItem('token');
+    };
   return (<>
     <IndexNavbar fixed />
     <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
@@ -20,7 +54,7 @@ export default function Index() {
               the CSS from{" "}
               <a
                 href="https://tailwindcss.com/?ref=creativetim"
-                className="text-blueGray-600"
+                className="text-blueGray-600 no-underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -47,12 +81,15 @@ export default function Index() {
             </div>
           </div>
         </div>
+        <div className="App">
+            {isLoadingAfterLogin && <Loader />}
+            {!isLoadingAfterLogin && isAuthenticated ? (
+              <TransactionForm onLogout={handleLogout} token={token} />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )}
+          </div>
       </div>
-      <img
-        className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860-px"
-        src="/img/pattern_nextjs.png"
-        alt="..."
-      />
     </section>
     <section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
       <div
@@ -107,7 +144,6 @@ export default function Index() {
               </blockquote>
             </div>
           </div>
-
           <div className="w-full md:w-6/12 px-4">
             <div className="flex flex-wrap">
               <div className="w-full md:w-6/12 px-4">

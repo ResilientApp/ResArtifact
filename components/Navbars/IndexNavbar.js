@@ -14,7 +14,7 @@ export default function Navbar(props) {
             href="/"
             className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase">
             
-              Notus NextJS
+              ResArtifact
             
           </Link>
           <button

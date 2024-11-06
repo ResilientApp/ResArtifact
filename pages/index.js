@@ -16,6 +16,9 @@ export default function Index() {
     const [token, setToken] = useState(null);
     const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
 
+    console.log("Loading after login,", isLoadingAfterLogin)
+    console.log("Is Authenticated", isAuthenticated)
+
     useEffect(() => {
       const storedToken = sessionStorage.getItem('token');
       if (storedToken) {
@@ -25,6 +28,7 @@ export default function Index() {
     }, []);
 
     const handleLogin = (authToken) => {
+      console.log("Logging in")
       setIsLoadingAfterLogin(true);
       setToken(authToken);
       sessionStorage.setItem('token', authToken);
@@ -40,6 +44,7 @@ export default function Index() {
       setToken(null);
       sessionStorage.removeItem('token');
     };
+
   return (<>
     <IndexNavbar fixed />
     <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
@@ -47,48 +52,47 @@ export default function Index() {
         <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
           <div className="pt-32 sm:pt-0">
             <h2 className="font-semibold text-4xl text-blueGray-600">
-              Notus NextJS - A beautiful extension for Tailwind CSS.
+              ResArtifact - A secure blockchain registry for historical artifacts.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-              Notus NextJS is Free and Open Source. It does not change any of
-              the CSS from{" "}
+              ResArtifact is an Open Source project by graduate students at the University of California, Davis that
+              applies distributed database systems. It utilizes{" "}
               <a
-                href="https://tailwindcss.com/?ref=creativetim"
+                href="https://resilientdb.apache.org/"
                 className="text-blueGray-600 no-underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Tailwind CSS
+                ResilientDB
               </a>
-              . It features multiple HTML elements and it comes with dynamic
-              components for ReactJS, Vue and Angular.
+              , developed by ExpoLab, to create secure transactions that stores the history of artifacts
+            and allows institutions to buy or sell artifacts under the guarantee of its validity.
             </p>
-            <div className="mt-12">
-              <a
-                href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus?ref=nnjs-index"
-                target="_blank"
+            <div className="mt-12 flex">
+            <a
+                href="/auth/login"
                 className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-400 active:bg-blueGray-500 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
               >
-                Get started
+                Begin Here
               </a>
+              {/* <div>
+                {isLoadingAfterLogin && <Loader />}
+                {!isLoadingAfterLogin && isAuthenticated ? (
+                  <TransactionForm onLogout={handleLogout} token={token} />
+                ) : (
+                  <Login onLogin={handleLogin} />
+                )}
+                </div> */}
               <a
-                href="https://github.com/creativetimofficial/notus-nextjs?ref=nnjs-index"
+                href="https://github.com/vuamy/ResArtifact"
                 className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
                 target="_blank"
               >
-                Github Star
+                Github Repository
               </a>
             </div>
           </div>
         </div>
-        <div className="App">
-            {isLoadingAfterLogin && <Loader />}
-            {!isLoadingAfterLogin && isAuthenticated ? (
-              <TransactionForm onLogout={handleLogout} token={token} />
-            ) : (
-              <Login onLogin={handleLogin} />
-            )}
-          </div>
       </div>
     </section>
     <section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
@@ -602,28 +606,18 @@ export default function Index() {
               Open Source
             </h3>
             <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-400">
-              Since{" "}
-              <a
-                href="https://tailwindcss.com/?ref=creative"
-                className="text-blueGray-300"
-                target="_blank"
-              >
-                Tailwind CSS
-              </a>{" "}
-              is an open source project we wanted to continue this movement
-              too. You can give this version a try to feel the design and also
-              test the quality of the code!
+              ResArtifact is an open source project to showcase ResilientDB, available for all developers to look through the code base and suggest changes.
             </p>
             <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-400">
               Get it free on Github and please help us spread the news with a
               Star!
             </p>
             <a
-              href="https://github.com/creativetimofficial/notus-nextjs?ref=nnjs-index"
+              href="https://github.com/vuamy/ResArtifact"
               target="_blank"
               className="github-star mt-4 inline-block text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
             >
-              Github Star
+              GitHub Repository
             </a>
           </div>
 

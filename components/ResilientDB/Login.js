@@ -14,50 +14,14 @@ const Login = ({ onLogin }) => {
   if (!sdkRef.current) {
     sdkRef.current = new ResVaultSDK();
   }
-
-  const animationContainer = useRef(null);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && animationContainer.current) {
-      const instance = lottie.loadAnimation({
-        container: animationContainer.current,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: '/img/animation.json',
-      });
-
-      instance.addEventListener('error', (e) => {
-        console.error('Lottie animation error:', e);
-      });
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            instance.play();
-          } else {
-            instance.pause();
-          }
-        });
-      });
-
-      observer.observe(animationContainer.current);
-
-      return () => {
-        instance.destroy();
-        observer.disconnect();
-      };
-    } else {
-      console.error('Animation container is not defined');
-    }
-  }, []);
-
+ 
   useEffect(() => {
     const sdk = sdkRef.current;
     if (!sdk) return;
 
     const messageHandler = (event) => {
       const message = event.data;
+      console.log("Message sent", message)
 
       if (
         message &&
@@ -84,6 +48,7 @@ const Login = ({ onLogin }) => {
       }
     };
 
+    console.log("Adding message handler");
     sdk.addMessageListener(messageHandler);
 
     return () => {
@@ -91,12 +56,17 @@ const Login = ({ onLogin }) => {
     };
   }, [onLogin]);
 
+  
+
   const handleAuthentication = () => {
+    console.log("Trying to login")
     if (sdkRef.current) {
+      console.log("Button works")
       sdkRef.current.sendMessage({
         type: 'login',
         direction: 'login',
       });
+      console.log("Message sent to SDK");
     } else {
       setModalTitle('Error');
       setModalMessage('SDK is not initialized.');
@@ -108,26 +78,14 @@ const Login = ({ onLogin }) => {
 
   return (
     <>
-      <div className="page-container">
-        <div className="form-container-rv">
-          <h2 className="heading">Resilient App</h2>
-
-          <div ref={animationContainer} className="animation-container"></div>
-
-          <div className="form-group-rv text-center mb-4">
-            <label className="signin-label">Sign In Via</label>
+      <div>
             <button
               type="button"
-              className="btn btn-secondary oauth-button"
+              className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-500 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
               onClick={handleAuthentication}
             >
-              <div className="logoBox">
-                <img src='/img/resilientdb.svg' alt="ResVault" className="oauth-logo" />
-                <span className="oauth-text">ResVault</span>
-              </div>
+              Login
             </button>
-          </div>
-        </div>
       </div>
 
       <NotificationModal

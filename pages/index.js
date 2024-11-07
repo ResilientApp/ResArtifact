@@ -10,40 +10,40 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Index() {
-    const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
+    // const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [token, setToken] = useState(null);
-    const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [token, setToken] = useState(null);
+    // const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
 
-    console.log("Loading after login,", isLoadingAfterLogin)
-    console.log("Is Authenticated", isAuthenticated)
+    // console.log("Loading after login,", isLoadingAfterLogin)
+    // console.log("Is Authenticated", isAuthenticated)
 
-    useEffect(() => {
-      const storedToken = sessionStorage.getItem('token');
-      if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
-      }
-    }, []);
+    // useEffect(() => {
+    //   const storedToken = sessionStorage.getItem('token');
+    //   if (storedToken) {
+    //     setToken(storedToken);
+    //     setIsAuthenticated(true);
+    //   }
+    // }, []);
 
-    const handleLogin = (authToken) => {
-      console.log("Logging in")
-      setIsLoadingAfterLogin(true);
-      setToken(authToken);
-      sessionStorage.setItem('token', authToken);
+    // const handleLogin = (authToken) => {
+    //   console.log("Logging in")
+    //   setIsLoadingAfterLogin(true);
+    //   setToken(authToken);
+    //   sessionStorage.setItem('token', authToken);
 
-      setTimeout(() => {
-        setIsAuthenticated(true);
-        setIsLoadingAfterLogin(false);
-      }, 2000);
-    };
+    //   setTimeout(() => {
+    //     setIsAuthenticated(true);
+    //     setIsLoadingAfterLogin(false);
+    //   }, 2000);
+    // };
 
-    const handleLogout = () => {
-      setIsAuthenticated(false);
-      setToken(null);
-      sessionStorage.removeItem('token');
-    };
+    // const handleLogout = () => {
+    //   setIsAuthenticated(false);
+    //   setToken(null);
+    //   sessionStorage.removeItem('token');
+    // };
 
   return (<>
     <IndexNavbar fixed />
@@ -94,6 +94,11 @@ export default function Index() {
           </div>
         </div>
       </div>
+      <img
+          className="absolute top-94-px b-auto right-0 pt-16 -mt-48 sm:mt-0 w-5/12 h-auto opacity-50"
+          src="/img/headergraphic.png"
+          alt="..."
+        />
     </section>
     <section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
       <div

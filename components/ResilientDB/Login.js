@@ -21,7 +21,6 @@ const Login = ({ onLogin }) => {
 
     const messageHandler = (event) => {
       const message = event.data;
-      console.log("Message sent", message)
 
       if (
         message &&
@@ -59,14 +58,12 @@ const Login = ({ onLogin }) => {
   
 
   const handleAuthentication = () => {
-    console.log("Trying to login")
     if (sdkRef.current) {
       console.log("Button works")
       sdkRef.current.sendMessage({
         type: 'login',
         direction: 'login',
       });
-      console.log("Message sent to SDK");
     } else {
       setModalTitle('Error');
       setModalMessage('SDK is not initialized.');

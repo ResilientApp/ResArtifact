@@ -17,9 +17,6 @@ export default function Login() {
     const [token, setToken] = useState(null);
     const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
 
-    console.log("Loading after login,", isLoadingAfterLogin)
-    console.log("Is Authenticated", isAuthenticated)
-
     useEffect(() => {
       const storedToken = sessionStorage.getItem('token');
       if (storedToken) {
@@ -29,7 +26,6 @@ export default function Login() {
     }, []);
 
     const handleLogin = (authToken) => {
-      console.log("Logging in")
       setIsLoadingAfterLogin(true);
       setToken(authToken);
       sessionStorage.setItem('token', authToken);
@@ -82,7 +78,8 @@ export default function Login() {
                     placeholder="Password"
                   />
                 </div>
-                <div className="flex justify-center">
+              </form>
+              <div className="flex justify-center">
                 {isLoadingAfterLogin && <Loader />}
                 {!isLoadingAfterLogin && isAuthenticated ? (
                   <TransactionForm onLogout={handleLogout} token={token} />
@@ -90,7 +87,6 @@ export default function Login() {
                   <Login onLogin={handleLogin} />
                 )}
                 </div>
-              </form>
             </div>
           </div>
           <div className="flex flex-wrap mt-6 relative">

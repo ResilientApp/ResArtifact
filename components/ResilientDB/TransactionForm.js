@@ -32,12 +32,14 @@ const TransactionForm = ({ onLogout, token }) => {
         if (message.data.success) {
           setModalTitle('Success');
           setModalMessage('Transaction successful! ID: ' + message.data.data.postTransaction.id);
+          console.log("Success")
         } else {
           setModalTitle('Transaction Failed');
           setModalMessage(
             'Transaction failed: ' +
               (message.data.error || JSON.stringify(message.data.errors))
           );
+          console.log(message.data.error)
         }
         setShowModal(true);
       }
@@ -57,6 +59,7 @@ const TransactionForm = ({ onLogout, token }) => {
       setModalTitle('Validation Error');
       setModalMessage('Please enter a recipient address.');
       setShowModal(true);
+      console.log("Modal should display due to missing recipient.");
       return;
     }
 
@@ -94,6 +97,10 @@ const TransactionForm = ({ onLogout, token }) => {
   };
 
   const handleCloseModal = () => setShowModal(false);
+
+  useEffect(() => {
+    console.log("Show Modal State:", showModal);
+  }, [showModal]);
 
   return (
     <>

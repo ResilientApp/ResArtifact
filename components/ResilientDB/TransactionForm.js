@@ -32,6 +32,7 @@ const TransactionForm = ({ onLogout, token }) => {
         if (message.data.success) {
           setModalTitle('Success');
           setModalMessage('Transaction successful! ID: ' + message.data.data.postTransaction.id);
+          console.log("message data: ", message.data) //data: {post transaction: id:#}, success: true
         } else {
           setModalTitle('Transaction Failed');
           setModalMessage(
@@ -52,7 +53,7 @@ const TransactionForm = ({ onLogout, token }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log("recipient: ", recipient) //recipient: 4fGVSdVxwDjYVFyY53ahNUYf2RUtaiTLLaSU3JVdZo8V (recipient address input)
     if (!recipient) {
       setModalTitle('Validation Error');
       setModalMessage('Please enter a recipient address.');
@@ -82,6 +83,7 @@ const TransactionForm = ({ onLogout, token }) => {
         data: parsedData,
         recipient: recipient,
       });
+      console.log("ammount: ", amount) //amount: 10 (amount input)
     } else {
       setModalTitle('Error');
       setModalMessage('SDK is not initialized.');

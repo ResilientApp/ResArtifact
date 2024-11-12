@@ -158,17 +158,11 @@ const TransactionForm = ({ onLogout, token }) => {
 
   return (
     <>
-      <div className="page-container">
         <div className="form-container">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2 className="heading">Submit Transaction</h2>
-            <button
-              type="button"
-              className="btn btn-danger logout-button"
-              onClick={handleLogoutClick}
-            >
-              Logout
-            </button>
+          <div className="flex justify-center items-center mb-4">
+            <h2 className="text-blueGray-700 text-center mb-3 mt-10 font-bold text-2xl">
+              Create New Transaction
+            </h2>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -203,23 +197,12 @@ const TransactionForm = ({ onLogout, token }) => {
             </div>
 
             <div className="form-group text-center">
-              <button type="submit" className="btn btn-primary button">
+              <button type="submit" className="option-button bg-blueGray-700 mt-6 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
                 Submit Transaction
               </button>
             </div>
           </form>
-          <div className="transactions-list">
-            <h3>Recent Transactions</h3>
-            <ul>
-              {transactions.map((transaction) => (
-                <li key={transaction.id}>
-                  Amount: {transaction.amount}, Recipient: {transaction.recipient}, Date: {transaction.date}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
-      </div>
 
       
 

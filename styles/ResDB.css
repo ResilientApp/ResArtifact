@@ -130,3 +130,7 @@
   height: 300;
   margin: '0 auto';
 }
+
+.bg-gradient-blue-gray {
+  background-image: linear-gradient(to bottom, rgba(30, 41, 59), rgba(71, 85, 105)); /* Adjust colors if necessary */
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
-import LoginNavbar from "components/Navbars/LoginNavbar.js";
+import DarkNavbar from "components/Navbars/AuthNavbar.js";
 import { useRouter } from 'next/router';  // Import useRouter
 
 // added resilientdb stuff
@@ -47,7 +47,7 @@ export default function Login() {
 
     return (
       <>
-      <LoginNavbar fixed />
+      <DarkNavbar />
         <div className="container mx-auto px-4 h-full">
           <div className="flex content-center items-center justify-center h-full">
             <div className="w-full lg:w-4/12 px-4">
@@ -66,17 +66,14 @@ export default function Login() {
                     <div>
                       {/* Display your dashboard components */}
                      
-                      <div className="options flex space-x-4 mt-4">
-                        <Link href="/TransactionForm">
-                          <button className="option-button option-button bg-purple-500 hover:bg-blue-600 text-blue font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">Add Artifacts</button>
+                      <div className="options flex items-center justify-center mt-6">
+                        <Link href="/auth/transaction">
+                          <button className="option-button bg-blueGray-700 mr-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">Add Artifacts</button>
                         </Link>
-                        <Link href="/NewPage">
-                          <button className="option-button option-button bg-purple-500 hover:bg-blue-600 text-blue font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">Search Artifacts</button>
+                        <Link href="/auth/retrieve">
+                          <button className="option-button bg-blueGray-700 ml-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">Search Artifacts</button>
                         </Link>
                       </div>
-                      <button className="option-button" onClick={handleLogout}>
-                        Log Out
-                      </button>
                     </div>
                   ) : (
                     // Login form
@@ -119,7 +116,7 @@ export default function Login() {
               </div>
 
               {/* Links for forgot password and sign up */}
-              {!isAuthenticated && (
+              {!isAuthenticated ? (
                 <div className="flex flex-wrap mt-6 relative">
                   <div className="w-1/2">
                     <a
@@ -134,6 +131,18 @@ export default function Login() {
                     <Link href="/auth/register" className="text-blueGray-200">
                       <small>Create new account</small>
                     </Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap mt-6 relative">
+                  <div className="w-1/2">
+                    <a
+                      href="#pablo"
+                      onClick={handleLogout}
+                      className="text-blueGray-200 option-button"
+                    >
+                      <small>Log Out</small>
+                    </a>
                   </div>
                 </div>
               )}

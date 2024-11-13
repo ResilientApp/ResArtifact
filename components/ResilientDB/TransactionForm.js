@@ -56,56 +56,56 @@ const TransactionForm = ({ onLogout, token }) => {
   }, []);
 
   // temp fetch until i figure where to put it
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await fetch('/api/transactions');
-        const result = await response.json();
+  // useEffect(() => {
+  //   const fetchTransactions = async () => {
+  //     try {
+  //       const response = await fetch('/api/transactions');
+  //       const result = await response.json();
         
-        if (result.success) {
-          setTransactions(result.transactions); // Save transactions to state
-        } else {
-          console.error('Failed to fetch transactions:', result.error);
-        }
-      } catch (error) {
-        console.error('Error fetching transactions:', error);
-      }
-    };
+  //       if (result.success) {
+  //         setTransactions(result.transactions); // Save transactions to state
+  //       } else {
+  //         console.error('Failed to fetch transactions:', result.error);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching transactions:', error);
+  //     }
+  //   };
 
-    fetchTransactions();
-  }, []); // Run once on mount
+  //   fetchTransactions();
+  // }, []); // Run once on mount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    try {
-      const response = await fetch('/api/transactions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount,
-          data,
-          recipient,
-        }),
-      });
+    // try {
+    //   const response = await fetch('/api/transactions', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       amount,
+    //       data,
+    //       recipient,
+    //     }),
+    //   });
 
-      const result = await response.json();
+    //   const result = await response.json();
       
-      if (result.success) {
-        setModalTitle('Success');
-        setModalMessage(`Transaction successful! ID: ${result.transactionId}`);
-      } else {
-        setModalTitle('Error');
-        setModalMessage(result.error || 'Transaction failed.');
-      }
-      console.log(result)
-      setShowModal(true);
-    } catch (error) {
-      console.error('Transaction submission error:', error);
-      setModalTitle('Error');
-      setModalMessage('An error occurred while submitting the transaction.');
-      setShowModal(true);
-    }
+    //   if (result.success) {
+    //     setModalTitle('Success');
+    //     setModalMessage(`Transaction successful! ID: ${result.transactionId}`);
+    //   } else {
+    //     setModalTitle('Error');
+    //     setModalMessage(result.error || 'Transaction failed.');
+    //   }
+    //   console.log(result)
+    //   setShowModal(true);
+    // } catch (error) {
+    //   console.error('Transaction submission error:', error);
+    //   setModalTitle('Error');
+    //   setModalMessage('An error occurred while submitting the transaction.');
+    //   setShowModal(true);
+    // }
   
 
     if (!recipient) {

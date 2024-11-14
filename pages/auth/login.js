@@ -66,12 +66,18 @@ export default function Login() {
                     <div>
                       {/* Display your dashboard components */}
                      
-                      <div className="options flex items-center justify-center mt-6">
+                      <div className="options flex flex-col items-center justify-center mt-10">
+                      <Link href="/auth/new-artifact">
+                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
+                            Add New Artifact</button>
+                        </Link>
                         <Link href="/auth/transaction">
-                          <button className="option-button bg-blueGray-700 mr-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">Add Artifacts</button>
+                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
+                            Create Transaction</button>
                         </Link>
                         <Link href="/auth/retrieve">
-                          <button className="option-button bg-blueGray-700 ml-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">Search Artifacts</button>
+                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                            Search Artifacts</button>
                         </Link>
                       </div>
                     </div>

@@ -1,53 +1,30 @@
 import React from "react";
-import Link from "next/link";
-import { useRouter } from 'next/router'
+import { ResilientDB, FetchClient } from 'resilientdb-javascript-sdk';
+
+const fetchClient = new FetchClient();
+const resilientDBClient = new ResilientDB("http://localhost:8000", fetchClient);
+console.log("ResilientDB Client:", resilientDBClient)
+
+async function getAllTransactions() {
+    const transactions = await resilientDBClient.getFilteredTransactions({ type: "ARTIFACT" });
+    console.log('All Transactions:', transactions);
+}
+
+async function getTransaction(id) {
+    console.log("Id passing in:", id, typeof id)
+    const transaction = await resilientDBClient.getTransaction(id.id)
+    console.log('Transaction:', transaction)
+}
  
-export default function ArtifactHomepage({allArtifactsData}) {
-    console.log(allArtifactsData)
-    allArtifactsData.map((artifact) => (
-        console.log(artifact)
-    ))
+getTransaction({id: "65b27771146183c35e0ae56c472fbcd1d5cb05cd59c57531157402f970f387ad"})
+getAllTransactions()
+
+export default function ArtifactHomepage() {
     return(
         <>
             <div>
-                {allArtifactsData.map((artifact) => (
-                    
-                    <div key={artifact.params.id}>
-                        {artifact.params.name}
-                    </div>
-                ))}
+                help
             </div>
         </>
     )
-}
-
-const tempArtifacts = [
-    {
-        params: {
-            id: 'holy-bible',
-            name: 'Holy Bible',
-            image: 'https://www.senate.gov/art-artifacts/resources/graphics/source/14_00055_001_a.jpg',
-            description: "The Holy Bible, containing the Old and New testament. Translated out of the original tongues; and with the former translations diligently compared and revised, to his Majesty's special command. Appointed to be read in churches.",
-            year: 1826
-        }
-    }, 
-    {
-        params: {
-            id: 'impeachment-ticket',
-            name: 'Impeachment Trial Ticket',
-            image: "",
-            description: "Ticket, 1868 Impeachment Trial, United States Senate Chamber",
-            year: 1868
-        }
-    }
-]
-
-export async function getStaticProps() {
-    // Return a list of possible value for id
-    const allArtifactsData = tempArtifacts;
-    return {
-        props: {
-            allArtifactsData,
-        }
-    }
 }

@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-
+import { ResilientDB, FetchClient } from 'resilientdb-javascript-sdk';
 import TransactionLayout from "layouts/Transaction.js";
+
+const resilientDBClient = new ResilientDB("https://cloud.resilientdb.com", new FetchClient());
+
+async function getAllTransactions() {
+  const transactions = await resilientDBClient.getAllTransactions();
+  console.log('All Transactions:', transactions);
+}
 
 const TransactionRetriever = () => {
   const [transactionId, setTransactionId] = useState('');
   const [transactionDetails, setTransactionDetails] = useState(null);
+
+  getAllTransactions()
 
   const fetchTransactionById = async (id) => {
     const query = `

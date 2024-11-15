@@ -9,7 +9,6 @@ const TransactionForm = ({ onLogout, token }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalMessage, setModalMessage] = useState('');
-  const [transactions, setTransactions] = useState([]);
 
 
   const sdkRef = useRef(null);
@@ -17,12 +16,13 @@ const TransactionForm = ({ onLogout, token }) => {
   if (!sdkRef.current) {
     sdkRef.current = new ResVaultSDK();
   }
-  console.log('Transactions:', transactions);  // Log transactions state
 
   useEffect(() => {
     const sdk = sdkRef.current;
-    if (!sdk) return;
-
+    if (!sdk) {
+      console.log("No SDK")
+      return;
+    }
     const messageHandler = (event) => {
       const message = event.data;
 
@@ -54,26 +54,6 @@ const TransactionForm = ({ onLogout, token }) => {
       sdk.removeMessageListener(messageHandler);
     };
   }, []);
-
-  // temp fetch until i figure where to put it
-  // useEffect(() => {
-  //   const fetchTransactions = async () => {
-  //     try {
-  //       const response = await fetch('/api/transactions');
-  //       const result = await response.json();
-        
-  //       if (result.success) {
-  //         setTransactions(result.transactions); // Save transactions to state
-  //       } else {
-  //         console.error('Failed to fetch transactions:', result.error);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching transactions:', error);
-  //     }
-  //   };
-
-  //   fetchTransactions();
-  // }, []); // Run once on mount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,10 +131,6 @@ const TransactionForm = ({ onLogout, token }) => {
   };
 
   const handleCloseModal = () => setShowModal(false);
-
-  useEffect(() => {
-    console.log("Show Modal State:", showModal);
-  }, [showModal]);
 
   return (
     <>

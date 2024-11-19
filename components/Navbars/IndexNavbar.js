@@ -33,10 +33,17 @@ export default function Navbar(props) {
           }
           id="example-navbar-warning"
         >
-          <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+          <ul className="flex flex-col lg:flex-row list-none items-center lg:ml-auto">
             {/* <li className="flex items-center">
               <IndexDropdown />
             </li> */}
+            <Link
+              href="/artifact/home"
+              className={
+                "text-blueGray-700 active:text-blueGray-500 text-base font-bold uppercase px-4 ease-linear transition-all duration-150"
+              }>
+                View Collection        
+            </Link>
             <Link
               href="/auth/login"
               className={

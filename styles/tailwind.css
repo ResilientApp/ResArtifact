@@ -2350,6 +2350,10 @@ select {
   margin-right: 1rem;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -2380,6 +2384,14 @@ select {
 
 .mt-10 {
   margin-top: 2.5rem;
+}
+
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
 }
 
 .mt-12 {

@@ -37,25 +37,8 @@ export default function DarkNavbar(props) {
             <li>
               <a
                 className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="./">
-                Artifacts
-              </a>
-            </li>
-
-
-            <li>
-              <a
-                className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="./">
-                Add Artifacts
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="./">
-                Reports
+                href="/artifact/home">
+                View Collection
               </a>
             </li>
           </ul>

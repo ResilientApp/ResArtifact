@@ -2118,6 +2118,10 @@ select {
   height: 95px;
 }
 
+.h-120-px {
+  height: 120px;
+}
+
 .h-350-px {
   height: 350px;
 }
@@ -2408,6 +2412,10 @@ select {
 
 .mt-48 {
   margin-top: 12rem;
+}
+
+.mr-10 {
+  margin-right: 2.5rem;
 }
 
 .mr-auto {
@@ -3324,6 +3332,10 @@ select {
   color: rgba(30, 41, 59, var(--tw-text-opacity));
 }
 
+.hover\:bg-blueGray-300:hover {
+  background-color: rgba(203, 213, 225, 1);
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3547,6 +3559,14 @@ select {
 
 .w-auto {
   width: auto;
+}
+
+.w-120-px {
+  width: 120px;
+}
+
+.w-300-px {
+  width: 160px;
 }
 
 .w-1\/2 {

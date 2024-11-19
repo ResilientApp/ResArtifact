@@ -10,43 +10,9 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Index() {
-    // const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
-
-    // const [isAuthenticated, setIsAuthenticated] = useState(false);
-    // const [token, setToken] = useState(null);
-    // const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
-
-    // console.log("Loading after login,", isLoadingAfterLogin)
-    // console.log("Is Authenticated", isAuthenticated)
-
-    // useEffect(() => {
-    //   const storedToken = sessionStorage.getItem('token');
-    //   if (storedToken) {
-    //     setToken(storedToken);
-    //     setIsAuthenticated(true);
-    //   }
-    // }, []);
-
-    // const handleLogin = (authToken) => {
-    //   console.log("Logging in")
-    //   setIsLoadingAfterLogin(true);
-    //   setToken(authToken);
-    //   sessionStorage.setItem('token', authToken);
-
-    //   setTimeout(() => {
-    //     setIsAuthenticated(true);
-    //     setIsLoadingAfterLogin(false);
-    //   }, 2000);
-    // };
-
-    // const handleLogout = () => {
-    //   setIsAuthenticated(false);
-    //   setToken(null);
-    //   sessionStorage.removeItem('token');
-    // };
 
   return (<>
-    <IndexNavbar fixed />
+    <IndexNavbar/>
     <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
       <div className="container mx-auto items-center flex flex-wrap">
         <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">

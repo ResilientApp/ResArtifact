@@ -3,14 +3,19 @@ import ResVaultSDK from 'resvault-sdk';
 import NotificationModal from './NotificationModal';
 
 const TransactionForm = ({ onLogout, token }) => {
-  const [amount, setAmount] = useState('');
-  const [data, setData] = useState('');
+  // State variables for each required JSON field, initialized as empty
+  const [name, setName] = useState('');
+  const [curatorID, setCuratorID] = useState('');
+  const [museumID, setMuseumID] = useState('');
   const [recipient, setRecipient] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalMessage, setModalMessage] = useState('');
-
+  const [recipientPublicKey, setRecipientPublicKey] = useState(null);
+  const [transactionId, setTransactionId] = useState(null);
   const sdkRef = useRef(null);
+
+  const fixedAmount = "1";
 
   if (!sdkRef.current) {
     sdkRef.current = new ResVaultSDK();
@@ -19,6 +24,29 @@ const TransactionForm = ({ onLogout, token }) => {
   useEffect(() => {
     const sdk = sdkRef.current;
     if (!sdk) return;
+
+    const initializePublicKey = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/graphql", {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `mutation { generateKeys { publicKey privateKey } }`,
+            variables: {},
+          })
+        });
+        const result = await response.json();
+        if (result?.data?.generateKeys) {
+          setRecipientPublicKey(result.data.generateKeys.publicKey);
+        } else {
+          throw new Error('Failed to initialize public key');
+        }
+      } catch (error) {
+        console.error('Error initializing public key:', error);
+      }
+    };
+
+    initializePublicKey();
 
     const messageHandler = (event) => {
       const message = event.data;
@@ -30,13 +58,14 @@ const TransactionForm = ({ onLogout, token }) => {
         message.data.success !== undefined
       ) {
         if (message.data.success) {
+          setTransactionId(message.data.data.postTransaction.id);
           setModalTitle('Success');
           setModalMessage('Transaction successful! ID: ' + message.data.data.postTransaction.id);
-          console.log("message data: ", message.data); // data: {post transaction: id:#}, success: true
         } else {
           setModalTitle('Transaction Failed');
           setModalMessage(
-            'Transaction failed: ' + (message.data.error || JSON.stringify(message.data.errors))
+            'Transaction failed: ' +
+            (message.data.error || JSON.stringify(message.data.errors))
           );
         }
         setShowModal(true);
@@ -52,33 +81,27 @@ const TransactionForm = ({ onLogout, token }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("recipient: ", recipient); // recipient: 4fGVSdVxwDjYVFyY53ahNUYf2RUtaiTLLaSU3JVdZo8V (recipient address input)
-    
-    if (!recipient) {
+
+    if (!recipient || !recipientPublicKey) {
       setModalTitle('Validation Error');
-      setModalMessage('Please enter a recipient address.');
+      setModalMessage('Please ensure both recipient and public key are initialized.');
       setShowModal(true);
       return;
     }
 
-    let parsedData = {};
-    if (data.trim() !== '') {
-      try {
-        parsedData = JSON.parse(data);
-      } catch (error) {
-        setModalTitle('Validation Error');
-        setModalMessage('Invalid JSON format in the data field. Please check and try again.');
-        setShowModal(true);
-        return;
-      }
-    }
+    // Construct the JSON object with only required fields
+    const parsedData = {
+      name,
+      curatorID,
+      museumID,
+    };
 
     if (sdkRef.current) {
       sdkRef.current.sendMessage({
         type: 'commit',
         direction: 'commit',
-        amount: amount,
-        data: parsedData,
+        amount: fixedAmount,
+        data: parsedData,  // Send the simplified JSON data
         recipient: recipient,
       });
     } else {
@@ -94,61 +117,88 @@ const TransactionForm = ({ onLogout, token }) => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  useEffect(() => {
+    if (transactionId) {
+      const uniqueLink = `transaction-page.html?transaction=${transactionId}&key=${recipientPublicKey}`;
+      window.location.href = uniqueLink;
+    }
+  }, [transactionId]);
+
   return (
     <>
-      <div className="page-container">
-        <div className="form-container">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <p className="heading">Submit Transaction</p>
-            
-          </div>
+      <div className="pt-16 bg-gray-50 h-full max-h-screen flex items-center justify-center">
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-xl">
+          <h2 className="text-4xl font-semibold text-center text-blue-800 mb-8">
+            Add Artifact
+          </h2>
 
-          <form onSubmit={handleSubmit}>
-            <div className="form-group mb-3">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="form-group">
               <input
                 type="text"
-                className="form-control"
-                placeholder="Enter your amount here"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                placeholder="Artifact Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
-            <div className="form-group mb-3">
+            <div className="form-group">
               <input
                 type="text"
-                className="form-control"
-                placeholder="Enter your data here (JSON)"
-                value={data}
-                onChange={(e) => setData(e.target.value)}
+                className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                placeholder="Curator ID"
+                value={curatorID}
+                onChange={(e) => setCuratorID(e.target.value)}
               />
             </div>
 
-            <div className="form-group mb-4">
+            <div className="form-group">
               <input
                 type="text"
-                className="form-control"
-                placeholder="Enter recipient address here"
+                className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                placeholder="Museum ID"
+                value={museumID}
+                onChange={(e) => setMuseumID(e.target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                placeholder="Recipient's Public Key"
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
               />
             </div>
 
-            <div className="form-group text-center">
-              <button type="submit" className="btn btn-primary button">
-                Submit 
+            <div className="flex justify-between items-center mt-8">
+              <button
+                type="submit"
+                className="px-8 py-2 bg-blue-500 text-black rounded-lg shadow-md hover:bg-blue-600"
+              >
+                Submit Transaction
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 text-gray-600 border border-gray-400 rounded-lg hover:bg-gray-100"
+                onClick={handleLogoutClick}
+              >
+                Logout
               </button>
             </div>
           </form>
         </div>
       </div>
 
-      <NotificationModal
-        show={showModal}
-        title={modalTitle}
-        message={modalMessage}
-        onClose={handleCloseModal}
-      />
+      {showModal && (
+        <NotificationModal
+          title={modalTitle}
+          message={modalMessage}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 };

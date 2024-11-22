@@ -7,6 +7,7 @@ const TransactionForm = ({ onLogout, token }) => {
   
   const [name, setName] = useState("");
   const [origin, setOrigin] = useState("");
+  const [originYear, setOriginYear] = useState("");  // Added field for origin year
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
   const [curatorId, setCuratorId] = useState("");
@@ -17,9 +18,10 @@ const TransactionForm = ({ onLogout, token }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [recipientPublicKey, setRecipientPublicKey] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");  // New state for image URL
   const sdkRef = useRef(null);
 
-  const fixedAmount = "1";
+  const fixedAmount = "44";
 
   if (!sdkRef.current) {
     sdkRef.current = new ResVaultSDK();
@@ -93,14 +95,19 @@ const TransactionForm = ({ onLogout, token }) => {
       return;
     }
 
-    // Construct the JSON object
+    // Construct the JSON object with imageUrl in metadata
     const parsedData = {
       name,
       origin,
+      originYear,
       description,
       condition,
       curatorId,
       museumId,
+    };
+
+    const metadata = {
+      image: imageUrl,  // Add the image URL to metadata
     };
 
     if (sdkRef.current) {
@@ -110,6 +117,7 @@ const TransactionForm = ({ onLogout, token }) => {
         amount: fixedAmount,
         data: parsedData,
         recipient: recipient,
+        metadata: metadata,  // Include metadata with image URL
       });
     } else {
       setModalTitle("Error");
@@ -123,13 +131,6 @@ const TransactionForm = ({ onLogout, token }) => {
   };
 
   const handleCloseModal = () => setShowModal(false);
-
-  useEffect(() => {
-    if (transactionId) {
-      const uniqueLink = `transaction-page.html?transaction=${transactionId}&key=${recipientPublicKey}`;
-      window.location.href = uniqueLink;
-    }
-  }, [transactionId]);
 
   return (
     <>
@@ -152,9 +153,16 @@ const TransactionForm = ({ onLogout, token }) => {
                 <input
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Origin"
+                  placeholder="Place of Origin"
                   value={origin}
                   onChange={(e) => setOrigin(e.target.value)}
+                />
+                <input
+                  type="number"
+                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                  placeholder="Origin Year"
+                  value={originYear}
+                  onChange={(e) => setOriginYear(e.target.value)}
                 />
                 <textarea
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
@@ -190,7 +198,13 @@ const TransactionForm = ({ onLogout, token }) => {
                   value={recipient}
                   onChange={(e) => setRecipient(e.target.value)}
                 />
-
+                <input
+                  type="text"
+                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter Image URL"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                />
                 <div className="flex justify-between items-center mt-8">
                   <button
                     type="submit"
@@ -200,7 +214,7 @@ const TransactionForm = ({ onLogout, token }) => {
                   </button>
                   <a
                     href="/auth/login"
-                    className="text-blueGray-200 option-button px-4 py-2 border border-gray-400 rounded-lg hover:bg-gray-100"
+                    className="text-Black-200 option-button px-4 py-2 border border-gray-400 rounded-lg hover:bg-gray-100"
                   >
                     Back to Dashboard
                   </a>
@@ -210,14 +224,6 @@ const TransactionForm = ({ onLogout, token }) => {
           </div>
         </div>
       </div>
-
-      {showModal && (
-        <NotificationModal
-          title={modalTitle}
-          message={modalMessage}
-          onClose={handleCloseModal}
-        />
-      )}
     </>
   );
 };

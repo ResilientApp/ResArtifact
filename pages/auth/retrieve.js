@@ -3,11 +3,12 @@ import TransactionLayout from "layouts/Transaction.js";
 
 const TransactionRetriever = () => {
   const [name, setName] = useState("");
-  const [origin, setOrigin] = useState(""); // For origin museum ID
+  const [origin, setOrigin] = useState("");
   const [curatorId, setCuratorId] = useState("");
   const [museumId, setMuseumId] = useState("");
-  const [searchCriteria, setSearchCriteria] = useState("name"); // Default search by name
+  const [searchCriteria, setSearchCriteria] = useState("name");
   const [transactions, setTransactions] = useState(null);
+  const [assets, setAssets] = useState([]);
 
   const fetchFilteredTransactions = async () => {
     let query = "";
@@ -17,15 +18,7 @@ const TransactionRetriever = () => {
       query = `
         query getFilteredNameTransactions($name: String!) {
           getFilteredNameTransactions(filter: { name: $name }) {
-            id
-            version
-            amount
-            metadata
-            operation
             asset
-            publicKey
-            uri
-            type
           }
         }
       `;
@@ -34,15 +27,7 @@ const TransactionRetriever = () => {
       query = `
         query getFilteredOriginTransactions($origin: String!) {
           getFilteredOriginTransactions(filter: { origin: $origin }) {
-            id
-            version
-            amount
-            metadata
-            operation
             asset
-            publicKey
-            uri
-            type
           }
         }
       `;
@@ -51,15 +36,7 @@ const TransactionRetriever = () => {
       query = `
         query getFilteredCuratorTransactions($curatorId: String!) {
           getFilteredCuratorTransactions(filter: { curatorId: $curatorId }) {
-            id
-            version
-            amount
-            metadata
-            operation
             asset
-            publicKey
-            uri
-            type
           }
         }
       `;
@@ -68,11 +45,6 @@ const TransactionRetriever = () => {
       query = `
         query getFilteredMuseumTransactions($museumId: String!) {
           getFilteredMuseumTransactions(filter: { museumId: $museumId }) {
-            id
-            version
-            amount
-            metadata
-            operation
             asset
             publicKey
             uri
@@ -91,9 +63,15 @@ const TransactionRetriever = () => {
       });
       const result = await response.json();
       if (result.data) {
-        setTransactions(result.data[Object.keys(result.data)[0]]);
+        const fetchedTransactions = result.data[Object.keys(result.data)[0]];
+        setTransactions(fetchedTransactions);
+
+        // Extract and store assets
+        const fetchedAssets = fetchedTransactions.map((transaction) => transaction.asset);
+        setAssets(fetchedAssets);
       } else {
         setTransactions(null);
+        setAssets([]);
       }
     } catch (error) {
       console.error("Error fetching transactions:", error);
@@ -105,6 +83,26 @@ const TransactionRetriever = () => {
     await fetchFilteredTransactions();
   };
 
+  const extractInfo = (asset) => {
+    // Convert asset object to string
+    const assetString = JSON.stringify(asset);
+
+    // Regex to match all key-value pairs (key: 'value')
+    const regex = /\'([a-zA-Z0-9]+)\'\s*:\s*\'([^\']+)\'/g;
+    const matches = [];
+    let match;
+
+    // Find all key-value pairs
+    while ((match = regex.exec(assetString)) !== null) {
+      const key = match[1]; // The key (e.g., 'name', 'origin')
+      const value = match[2]; // The value (e.g., 'g', 'mumbai')
+
+      matches.push({ key, value });
+    }
+
+    return matches;
+  };
+
   return (
     <div className="container mx-auto px-4 h-full">
       <div className="flex content-center items-center justify-center h-full">
@@ -112,7 +110,7 @@ const TransactionRetriever = () => {
           <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <h2 className="text-blueGray-700 text-center mb-3 mt-10 font-bold text-2xl">
-                Retrieve Filtered Transactions
+                Search Artifacts
               </h2>
               <form onSubmit={handleRetrieve} className="mt-6">
                 <div className="form-group mb-6">
@@ -151,7 +149,6 @@ const TransactionRetriever = () => {
                   />
                 </div>
 
-                {/* Dropdown for selecting search criteria */}
                 <div className="form-group mb-6">
                   <select
                     value={searchCriteria}
@@ -170,30 +167,29 @@ const TransactionRetriever = () => {
                     type="submit"
                     className="bg-blueGray-700 text-white font-bold py-2 px-4 rounded shadow-lg hover:bg-blueGray-500 transition duration-200 ease-in-out transform hover:scale-105"
                   >
-                    Retrieve Transactions
+                    Search
                   </button>
                 </div>
               </form>
 
-              {transactions && transactions.length > 0 && (
+              {assets.length > 0 && (
                 <div className="mt-10">
-                  <h4 className="text-blueGray-700 font-bold text-lg">Transaction Details</h4>
-                  {transactions.map((transaction) => (
-                    <div
-                      key={transaction.id}
-                      className="p-4 bg-white rounded-lg shadow-sm mb-4"
-                    >
-                      <p className="text-sm">ID: {transaction.id}</p>
-                      <p className="text-sm">Version: {transaction.version}</p>
-                      <p className="text-sm">Amount: {transaction.amount}</p>
-                      <p className="text-sm">Metadata: {transaction.metadata}</p>
-                      <p className="text-sm">Operation: {transaction.operation}</p>
-                      <p className="text-sm">Asset: {transaction.asset}</p>
-                      <p className="text-sm">Public Key: {transaction.publicKey}</p>
-                      <p className="text-sm">URI: {transaction.uri}</p>
-                      <p className="text-sm">Type: {transaction.type}</p>
-                    </div>
-                  ))}
+                  <h4 className="text-blueGray-700 font-bold text-lg">Artifacts</h4>
+                  {assets.map((asset, index) => {
+                    const assetInfo = extractInfo(asset);  // Extract all key-value pairs from the asset
+                    return (
+                      <div key={index} className="p-4 bg-white rounded-lg shadow-sm mb-4">
+                        {/* Display all key-value pairs */}
+                        <pre className="text-sm">
+                          {assetInfo.map((info, i) => (
+                            <div key={i}>
+                              <strong>{info.key}: </strong>{info.value}
+                            </div>
+                          ))}
+                        </pre>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

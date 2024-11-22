@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import DarkNavbar from "components/Navbars/AuthNavbar.js";
-import { useRouter } from 'next/router';  // Import useRouter
+import { useRouter } from 'next/router';  
 
-// added resilientdb stuff
 import Loader from 'components/ResilientDB/Loader.js';
-
-// layout for page
 import Auth from "layouts/Auth.js";
 
 export default function Login() {
-    const router = useRouter();  // Use the router hook
+    const router = useRouter();
 
     const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
 
@@ -35,7 +32,6 @@ export default function Login() {
       setTimeout(() => {
         setIsAuthenticated(true);
         setIsLoadingAfterLogin(false);
-        // No need for redirection, just display the dashboard after login
       }, 2000);
     };
 
@@ -47,13 +43,13 @@ export default function Login() {
 
     return (
       <>
-      <DarkNavbar />
+        <DarkNavbar />
         <div className="container mx-auto px-4 h-full">
           <div className="flex content-center items-center justify-center h-full">
-            <div className="w-full lg:w-4/12 px-4">
+            <div className="w-full lg:w-6/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-                <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  <div className="text-blueGray-700 text-center mt-10 mb-3 font-bold text-2xl">
+                <div className="flex-auto px-4 lg:px-8 py-6">
+                  <div className="text-blueGray-700 text-center mt-6 mb-3 font-bold text-2xl">
                     {isAuthenticated ? (
                       <p>Welcome to your Dashboard</p>  
                     ) : (
@@ -64,21 +60,33 @@ export default function Login() {
                   {/* Conditional rendering */}
                   {isAuthenticated ? (
                     <div>
-                      {/* Display your dashboard components */}
-                     
-                      <div className="options flex flex-col items-center justify-center mt-10">
-                      <Link href="/auth/new-artifact">
-                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
-                            Add New Artifact</button>
-                        </Link>
-                        <Link href="/auth/transaction">
-                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
-                            Create Transaction</button>
+                      {/* Dashboard options */}
+                      <div className="options flex flex-row items-center justify-evenly mt-6">
+                        <Link href="/auth/new-artifact">
+                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-2 px-6 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                            Add New Artifact
+                          </button>
                         </Link>
                         <Link href="/auth/retrieve">
-                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                            Search Artifacts</button>
+                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-2 px-6 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                            Search Artifacts
+                          </button>
                         </Link>
+                      </div>
+
+                      {/* Floating Table with "Hello" */}
+                      <div className="flex justify-center mt-10">
+                        <div className="w-10/12 lg:w-6/12 bg-white shadow-lg rounded-lg p-6">
+                          <table className="table-auto w-full text-center">
+                            <thead>
+                              <tr>
+                                <th className="text-5xl font-bold text-blueGray-700 py-4">
+                                  Hello
+                                </th>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -120,38 +128,6 @@ export default function Login() {
                   )}
                 </div>
               </div>
-
-              {/* Links for forgot password and sign up */}
-              {!isAuthenticated ? (
-                <div className="flex flex-wrap mt-6 relative">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-blueGray-200"
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
-                  <div className="w-1/2 text-right">
-                    <Link href="/auth/register" className="text-blueGray-200">
-                      <small>Create new account</small>
-                    </Link>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-wrap mt-6 relative">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={handleLogout}
-                      className="text-blueGray-200 option-button"
-                    >
-                      <small>Log Out</small>
-                    </a>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>

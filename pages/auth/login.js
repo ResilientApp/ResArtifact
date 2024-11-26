@@ -5,13 +5,12 @@ import DarkNavbar from "components/Navbars/AuthNavbar.js";
 import { useRouter } from 'next/router';  // Import useRouter
 import { useAuth, login, logout } from "../api/handleAuthenticated"; // Import authenticated
 
-// added resilientdb stuff
 import Loader from 'components/ResilientDB/Loader.js';
-// layout for page
+
 import Auth from "layouts/Auth.js";
 
 export default function Login() {
-    const router = useRouter();  // Use the router hook
+    const router = useRouter();
 
     const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
 
@@ -33,7 +32,7 @@ export default function Login() {
       login();
       setIsLoadingAfterLogin(false);
   };
-
+  
   const handleLogout = () => {
       logout();
       setToken(null);
@@ -42,13 +41,34 @@ export default function Login() {
 
     return (
       <>
-      <DarkNavbar />
-        <div className="container mx-auto px-4 h-full">
-          <div className="flex content-center items-center justify-center h-full">
-            <div className="w-full lg:w-4/12 px-4">
-              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-                <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  <div className="text-blueGray-700 text-center mt-10 mb-3 font-bold text-2xl">
+        <DarkNavbar />
+        
+        {/* Centered buttons in their respective halves */}
+        {isAuthenticated && (
+          <div className="flex justify-between w-full px-8 mt-6">
+            <div className="w-1/2 flex justify-center">
+              <Link href="/auth/new-artifact">
+                <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-28 px-36 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                  Add New Artifact
+                </button>
+              </Link>
+            </div>
+            <div className="w-1/2 flex justify-center">
+              <Link href="/artifact/home">
+                <button className="option-button bg-blueGray-700  h- hover:bg-blueGray-400 text-white font-bold py- px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                  View All Artifacts
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        <div className="container mx-auto px-3 h-full">
+          <div className="flex content-center items-center justify-center">
+            <div className=" lg:w-1/12 xl:w-5/12"> {/* Reduced width of the white box */}
+              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transform translate-y-[-20px]"> {/* Applied translate-y */}
+                <div className="flex-auto px-4 lg:px-4 py-2">
+                  <div className="text-blueGray-700 text-center mt-6 mb-3 font-bold text-2xl">
                     {isAuthenticated ? (
                       <p>Welcome to your Dashboard</p>  
                     ) : (
@@ -59,20 +79,12 @@ export default function Login() {
                   {/* Conditional rendering */}
                   {isAuthenticated ? (
                     <div>
-                      {/* Display your dashboard components */}
-                     
-                      <div className="options flex flex-col items-center justify-center mt-10">
-                      <Link href="/auth/new-artifact">
-                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
-                            Add New Artifact</button>
-                        </Link>
-                        <Link href="/auth/transaction">
-                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 ">
-                            Create Transaction</button>
-                        </Link>
+                      {/* Centered button for Search My Artifacts */}
+                      <div className="flex justify-center mt-6">
                         <Link href="/auth/retrieve">
-                          <button className="option-button bg-blueGray-700 mb-4 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                            Search Artifacts</button>
+                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-1 px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                            Search My Artifacts
+                          </button>
                         </Link>
                       </div>
                     </div>
@@ -102,7 +114,7 @@ export default function Login() {
                         </label>
                         <input
                           type="password"
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          className="border-4 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Password"
                         />
                       </div>
@@ -115,38 +127,6 @@ export default function Login() {
                   )}
                 </div>
               </div>
-
-              {/* Links for forgot password and sign up */}
-              {!isAuthenticated ? (
-                <div className="flex flex-wrap mt-6 relative">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-blueGray-200"
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
-                  <div className="w-1/2 text-right">
-                    <Link href="/auth/register" className="text-blueGray-200">
-                      <small>Create new account</small>
-                    </Link>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-wrap mt-6 relative">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={handleLogout}
-                      className="text-blueGray-200 option-button"
-                    >
-                      <small>Log Out</small>
-                    </a>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -155,4 +135,3 @@ export default function Login() {
 }
 
 Login.layout = Auth;
-

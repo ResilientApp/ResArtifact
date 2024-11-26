@@ -24,7 +24,7 @@ export default function CardArtifact({ params }) {
           <div className="text-left mb-4">
             <div className="flex flex-wrap">
                 <p className="text-sm leading-relaxed text-blueGray-700">
-                  Year  : {params.year}
+                  Year of Origin  : {params.year}
                 </p>
             </div>
           </div>

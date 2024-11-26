@@ -11,6 +11,7 @@ import PageChange from "components/PageChange/PageChange.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "styles/tailwind.css";
 import "styles/ResDB.css"
+import "styles/modal.css"
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);

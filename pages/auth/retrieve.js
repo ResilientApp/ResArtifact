@@ -1,99 +1,127 @@
-import React, { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import TransactionLayout from "layouts/Transaction.js";
 
-const TransactionRetriever = () => {
-  const [transactionId, setTransactionId] = useState('');
-  const [transactionDetails, setTransactionDetails] = useState(null);
+export default function Transactions() {
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const fetchTransactionById = async (id) => {
-    const query = `
-      query getTransaction($id: ID!) {
-        getTransaction(id: $id) {
-          id
-          amount
-          asset
+  const publicKey = '8QkgpLEShfkMEruc5SubiRPN3JagYWLvFAUG9Jy3bay4';
+
+  // Fetch transactions on component mount
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`/api/retrieve?publicKey=${publicKey}`);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
         }
+        const data = await response.json();
+        setTransactions(data.transactions);
+      } catch (error) {
+        console.error('Failed to fetch transactions:', error);
+        setError('Failed to fetch transactions. Please try again later.');
+      } finally {
+        setLoading(false);
       }
-    `;
-    const variables = { id };
+    };
 
-    try {
-      const response = await fetch("http://localhost:8000/graphql", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query, variables }),
-      });
-      const result = await response.json();
-      if (result.data) {
-        setTransactionDetails(result.data.getTransaction);
-      } else {
-        setTransactionDetails(null);
-      }
-    } catch (error) {
-      console.error("Error fetching transaction:", error);
-    }
-  };
+    fetchTransactions();
+  }, []);
 
-  const handleRetrieve = async (e) => {
-    e.preventDefault();
-    if (transactionId) {
-      await fetchTransactionById(transactionId);
+
+  const handleTransfer = (transaction) => {
+   
+    const txnString = JSON.stringify(transaction);
+    const idMatch = txnString.match(/"id":"(.*?)"/);
+    const id = idMatch ? idMatch[1] : null;
+
+    if (id) {
+      // Redirect to the new page in the same tab
+      window.location.href = `/auth/${id}`;
+    } else {
+      console.error("Transaction ID not found");
     }
   };
 
   return (
     <div className="container mx-auto px-4 h-full">
-        <div className="flex content-center items-center justify-center h-full">
-          <div className="w-full lg:w-6/12 px-4">
-            <div className="relative flex flex-col justify-center items-center min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-              <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <h2 className="text-blueGray-700 text-center mb-3 mt-10 font-bold text-2xl">
-                  Retrieve Transaction
-                </h2>
-                <div className="form-container flex flex-col">
-                <form onSubmit={handleRetrieve}>
-                  <div className="form-group mb-3 mt-6">
-                  <input
-                    type="text"
-                    placeholder="Enter Transaction ID"
-                    value={transactionId}
-                    onChange={(e) => setTransactionId(e.target.value)}
-                  />
-                  </div>
-                  <div className="form-group text-center">
-                  <button type="submit"
-                  className="option-button bg-blueGray-700 mt-3 hover:bg-blueGray-400 text-white font-bold py-2 px-4 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105 "
-                  >Retrieve Transaction</button>
-                  </div>
-                </form>
-                </div>
+      <div className="flex content-center items-center justify-center h-full">
+        <div className="w-full lg:w-4/12 px-4">
+          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+            <div className="text-blueGray-700 text-center mb-5 mt-5 font-bold text-2xl">
+              <p>My Artifacts</p>
+            </div>
 
-                {transactionDetails && (
-                  <div>
-                    <h4>Transaction Details</h4>
-                    <p>ID: {transactionDetails.id}</p>
-                    <p>Amount: {transactionDetails.amount}</p>
-                  </div>
-                )}
-            </div>
+            {loading && (
+              <p className="text-center text-blueGray-700">Loading transactions...</p>
+            )}
+            {error && (
+              <p className="text-center text-red-500">{error}</p>
+            )}
+            {!loading && transactions.length === 0 && (
+              <p className="text-center text-blueGray-700">No transactions found.</p>
+            )}
+
+            <ul className="space-y-4">
+              {transactions.map((txn, index) => {
+                const txnString = JSON.stringify(txn);
+
+                const nameMatch = txnString.match(/"name":"(.*?)"/);
+                const uniqueidMatch = txnString.match(/"uniqueId":"(.*?)"/);
+                const originMatch = txnString.match(/"origin":"(.*?)"/);
+                const descriptionMatch = txnString.match(/"description":"(.*?)"/);
+                const conditionMatch = txnString.match(/"condition":"(.*?)"/);
+                const curatorIdMatch = txnString.match(/"curatorId":"(.*?)"/);
+                const museumIdMatch = txnString.match(/"museumId":"(.*?)"/);
+
+                const name = nameMatch ? nameMatch[1] : "Unknown Name";
+                const uniqueid = uniqueidMatch ? uniqueidMatch[1] : "Unknown Id";
+                const origin = originMatch ? originMatch[1] : "Unknown Origin";
+                const description = descriptionMatch ? descriptionMatch[1] : "No description available";
+                const condition = conditionMatch ? conditionMatch[1] : "Unknown Condition";
+                const curatorId = curatorIdMatch ? curatorIdMatch[1] : "Unknown Curator";
+                const museumId = museumIdMatch ? museumIdMatch[1] : "Unknown Museum";
+
+                return (
+                  <li
+                    key={index}
+                    className="px-4 py-4 bg-white shadow-sm rounded-lg flex flex-col space-y-2"
+                  >
+                    <p><strong>Name:</strong> {name}</p>
+                    <p><strong>Unique ID:</strong> {uniqueid}</p>
+                    <p><strong>Origin Place:</strong> {origin}</p>
+                    <p><strong>Description of Item:</strong> {description}</p>
+                    <p><strong>Condition:</strong> {condition}</p>
+                    <p><strong>Curator of the Piece:</strong> {curatorId}</p>
+                    <p><strong>Held by Museum:</strong> {museumId}</p>
+                    <div className="flex space-x-4 mt-2 justify-center">
+                      <a
+                        href="#view-link" // Add the appropriate link here
+                        className="bg-blue text-black px-4 py-2 rounded hover:bg-blue-700 transition-all"
+                      >
+                        View
+                      </a>
+                      <button
+                        onClick={() => handleTransfer(txn)} 
+                        className="bg-green text-black px-4 py-2 rounded hover:bg-green-700 transition-all"
+                      >
+                        Transfer
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-          <div className="flex flex-wrap mt-6 relative">
-                  <div className="w-1/2">
-                    <a
-                      href="/auth/login"
-                      className="text-blueGray-200 option-button"
-                    >
-                      <small>Back to Dashboard</small>
-                    </a>
-                  </div>
-            </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default TransactionRetriever;
+Transactions.layout = TransactionLayout;
 
-TransactionRetriever.layout = TransactionLayout;

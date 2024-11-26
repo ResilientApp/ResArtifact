@@ -26,6 +26,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
+    "resilient-node-cache": "^1.0.1",
     "resvault-sdk": "^1.0.1",
     "tailwindcss": "^3.3.2",
     "uuid": "^10.0.0",
@@ -34,7 +35,7 @@
   "scripts": {
     "start": "next start",
     "build": "next build",
-    "dev": "next dev",
+    "dev": "concurrently \"next dev\" \"node sync.js\"",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run build:tailwind && npm run dev",
     "build:tailwind": "tailwind build styles/index.css -o styles/tailwind.css"
   },
@@ -61,6 +62,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "concurrently": "^9.1.0",
     "postcss": "^8.4.22"
   }
 }

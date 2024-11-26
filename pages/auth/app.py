@@ -119,7 +119,7 @@ const TransactionForm = ({ onLogout, token }) => {
         amount: fixedAmount,
         data: parsedData,
         recipient: recipient,
-        metadata: metadata,  // Include metadata with image URL
+        metadata: metadata, 
       });
     } else {
       setModalTitle("Error");

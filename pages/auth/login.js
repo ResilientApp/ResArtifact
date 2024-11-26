@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import DarkNavbar from "components/Navbars/AuthNavbar.js";
-import { useRouter } from 'next/router';  
+import { useRouter } from 'next/router';  // Import useRouter
+import { useAuth, login, logout } from "../api/handleAuthenticated"; // Import authenticated
 
 import Loader from 'components/ResilientDB/Loader.js';
+
 import Auth from "layouts/Auth.js";
 
 export default function Login() {
@@ -12,34 +14,30 @@ export default function Login() {
 
     const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { isAuthenticated, login, logout } = useAuth();
     const [token, setToken] = useState(null);
     const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
 
     useEffect(() => {
-      const storedToken = sessionStorage.getItem('token');
+      const storedToken = sessionStorage.getItem("token");
       if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
+        login();
       }
-    }, []);
+    }, [login]);
 
     const handleLogin = (authToken) => {
       setIsLoadingAfterLogin(true);
       setToken(authToken);
       sessionStorage.setItem('token', authToken);
-
-      setTimeout(() => {
-        setIsAuthenticated(true);
-        setIsLoadingAfterLogin(false);
-      }, 500);
-    };
-
-    const handleLogout = () => {
-      setIsAuthenticated(false);
+      login();
+      setIsLoadingAfterLogin(false);
+  };
+  
+  const handleLogout = () => {
+      logout();
       setToken(null);
       sessionStorage.removeItem('token');
-    };
+  };
 
     return (
       <>

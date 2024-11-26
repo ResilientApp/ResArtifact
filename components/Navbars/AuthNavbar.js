@@ -1,11 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "../../pages/api/handleAuthenticated"; // Import authenticated
 // components
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 
 export default function DarkNavbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const { isAuthenticated } = useAuth();
+  
   return (<>
     <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">

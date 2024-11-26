@@ -49,11 +49,14 @@ export default function CombinedPage({ allArtifactsData }) {
     <>
       <IndexNavbar fixed />
       <section className="relative pt-20 px-6 min-h-screen pb-20">
-        <div className="px-6 pt-6 text-center">
-          <div className="font-semibold text-4xl text-blueGray-600">
+        <div className="pb-32 pt-20 text-left bg-full pl-10" style={{
+            background: "linear-gradient(to bottom, white, transparent), url('/img/ancient-ruins.jpg')",
+            backgroundSize: 'cover',
+          }}>
+          <div className="font-bold text-4xl text-blueGray-700">
             <h2>Artifact Collection</h2>
           </div>
-          <div className="mt-2 mb-12 text-base text-blueGray-700">
+          <div className="mt-2 text-base text-blueGray-700">
             Browse our collection of artifacts and view associated transactions.
           </div>
         </div>

@@ -10,7 +10,7 @@ export default function Auth({ children }) {
     <>
       <DarkNavbar transparent />
       <main>
-        <section className="relative w-full h-full py-40 min-h-screen">
+        <section className="relative w-50 h-2 py-20 min-h-screen">
           <div
             className="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
             style={{

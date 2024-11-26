@@ -32,7 +32,7 @@ export default function Login() {
       setTimeout(() => {
         setIsAuthenticated(true);
         setIsLoadingAfterLogin(false);
-      }, 2000);
+      }, 500);
     };
 
     const handleLogout = () => {
@@ -44,11 +44,32 @@ export default function Login() {
     return (
       <>
         <DarkNavbar />
-        <div className="container mx-auto px-4 h-full">
-          <div className="flex content-center items-center justify-center h-full">
-            <div className="w-full lg:w-6/12 px-4">
-              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-                <div className="flex-auto px-4 lg:px-8 py-6">
+        
+        {/* Centered buttons in their respective halves */}
+        {isAuthenticated && (
+          <div className="flex justify-between w-full px-8 mt-6">
+            <div className="w-1/2 flex justify-center">
+              <Link href="/auth/new-artifact">
+                <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-28 px-36 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                  Add New Artifact
+                </button>
+              </Link>
+            </div>
+            <div className="w-1/2 flex justify-center">
+              <Link href="/artifact/home">
+                <button className="option-button bg-blueGray-700  h- hover:bg-blueGray-400 text-white font-bold py- px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                  View All Artifacts
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        <div className="container mx-auto px-3 h-full">
+          <div className="flex content-center items-center justify-center">
+            <div className=" lg:w-1/12 xl:w-5/12"> {/* Reduced width of the white box */}
+              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transform translate-y-[-20px]"> {/* Applied translate-y */}
+                <div className="flex-auto px-4 lg:px-4 py-2">
                   <div className="text-blueGray-700 text-center mt-6 mb-3 font-bold text-2xl">
                     {isAuthenticated ? (
                       <p>Welcome to your Dashboard</p>  
@@ -60,33 +81,13 @@ export default function Login() {
                   {/* Conditional rendering */}
                   {isAuthenticated ? (
                     <div>
-                      {/* Dashboard options */}
-                      <div className="options flex flex-row items-center justify-evenly mt-6">
-                        <Link href="/auth/new-artifact">
-                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-2 px-6 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                            Add New Artifact
-                          </button>
-                        </Link>
+                      {/* Centered button for Search My Artifacts */}
+                      <div className="flex justify-center mt-6">
                         <Link href="/auth/retrieve">
-                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-2 px-6 rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                            Search Artifacts
+                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-1 px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+                            Search My Artifacts
                           </button>
                         </Link>
-                      </div>
-
-                      {/* Floating Table with "Hello" */}
-                      <div className="flex justify-center mt-10">
-                        <div className="w-10/12 lg:w-6/12 bg-white shadow-lg rounded-lg p-6">
-                          <table className="table-auto w-full text-center">
-                            <thead>
-                              <tr>
-                                <th className="text-5xl font-bold text-blueGray-700 py-4">
-                                  Hello
-                                </th>
-                              </tr>
-                            </thead>
-                          </table>
-                        </div>
                       </div>
                     </div>
                   ) : (
@@ -115,7 +116,7 @@ export default function Login() {
                         </label>
                         <input
                           type="password"
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          className="border-4 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="Password"
                         />
                       </div>
@@ -136,4 +137,3 @@ export default function Login() {
 }
 
 Login.layout = Auth;
-

@@ -1,25 +1,86 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import ResVaultSDK from "resvault-sdk";
 import NotificationModal from "pages/NotificationModal";
 import TransactionLayout from "layouts/Transaction.js";
 
-const TransactionForm = ({ onLogout, token }) => {
-  
-  const [name, setName] = useState("");
-  const [uniqueId, setUniqueId] = useState(""); 
-  const [origin, setOrigin] = useState("");
-  const [originYear, setOriginYear] = useState("");  
-  const [description, setDescription] = useState("");
-  const [condition, setCondition] = useState("");
-  const [curatorId, setCuratorId] = useState("");
-  const [museumId, setMuseumId] = useState("");
+export default function ArtifactTransactionPage({ onLogout, token }) {
+  // State for fetching transaction data
+  const [transactionDetails, setTransactionDetails] = useState({
+    name: "",
+    uniqueId: "",
+    origin: "",
+    year: "",
+    description: "",
+    condition: "",
+    curatorId: "",
+    museumId: "",
+  });
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchTransaction = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(`/api/getId?id=${id}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch transaction");
+        }
+
+        const data = await response.json();
+        const transactionData = data.transactions;
+
+        // Extracting required fields using regex from the transaction data
+        const transactionString = JSON.stringify(transactionData);
+
+        const nameMatch = transactionString.match(/"name":"(.*?)"/);
+        const uniqueIdMatch = transactionString.match(/"uniqueId":"(.*?)"/);
+        const originMatch = transactionString.match(/"origin":"(.*?)"/);
+        const yearMatch = transactionString.match(/"originYear":"(.*?)"/);
+        const descriptionMatch = transactionString.match(/"description":"(.*?)"/);
+        const conditionMatch = transactionString.match(/"condition":"(.*?)"/);
+        const curatorIdMatch = transactionString.match(/"curatorId":"(.*?)"/);
+        const museumIdMatch = transactionString.match(/"museumId":"(.*?)"/);
+
+        // Setting extracted values into the state
+        setTransactionDetails({
+          name: nameMatch ? nameMatch[1] : "Unknown Name",
+          uniqueId: uniqueIdMatch ? uniqueIdMatch[1] : "Unknown ID",
+          origin: originMatch ? originMatch[1] : "Unknown Origin",
+          year: yearMatch ? yearMatch[1] : "Unknown Year",
+          description: descriptionMatch ? descriptionMatch[1] : "No description available",
+          condition: conditionMatch ? conditionMatch[1] : "Unknown Condition",
+          curatorId: curatorIdMatch ? curatorIdMatch[1] : "Unknown Curator",
+          museumId: museumIdMatch ? museumIdMatch[1] : "Unknown Museum",
+        });
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransaction();
+  }, [id]);
+
+  // State for transaction form
   const [recipient, setRecipient] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
   const [recipientPublicKey, setRecipientPublicKey] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");  
+  const [imageUrl, setImageUrl] = useState("");
   const sdkRef = useRef(null);
 
   const fixedAmount = "44";
@@ -96,20 +157,8 @@ const TransactionForm = ({ onLogout, token }) => {
       return;
     }
 
-
-    const parsedData = {
-      name,
-      uniqueId, 
-      origin,
-      originYear,
-      description,
-      condition,
-      curatorId,
-      museumId,
-    };
-
     const metadata = {
-      image: imageUrl, 
+      image: imageUrl,
     };
 
     if (sdkRef.current) {
@@ -117,9 +166,9 @@ const TransactionForm = ({ onLogout, token }) => {
         type: "commit",
         direction: "commit",
         amount: fixedAmount,
-        data: parsedData,
+        data: transactionDetails,
         recipient: recipient,
-        metadata: metadata,  // Include metadata with image URL
+        metadata: metadata,
       });
     } else {
       setModalTitle("Error");
@@ -133,6 +182,9 @@ const TransactionForm = ({ onLogout, token }) => {
   };
 
   const handleCloseModal = () => setShowModal(false);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <>
@@ -149,95 +201,102 @@ const TransactionForm = ({ onLogout, token }) => {
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   placeholder="Artifact Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={transactionDetails.name}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, name: e.target.value })
+                  }
                 />
                 <input
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   placeholder="Unique ID"
-                  value={uniqueId}
-                  onChange={(e) => setUniqueId(e.target.value)}
+                  value={transactionDetails.uniqueId}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, uniqueId: e.target.value })
+                  }
                 />
                 <input
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   placeholder="Place of Origin"
-                  value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
+                  value={transactionDetails.origin}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, origin: e.target.value })
+                  }
                 />
                 <input
-                  type="number"
+                  type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Origin Year"
-                  value={originYear}
-                  onChange={(e) => setOriginYear(e.target.value)}
+                  placeholder="Year of Origin"
+                  value={transactionDetails.year}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, year: e.target.value })
+                  }
                 />
                 <textarea
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Artifact Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Description"
+                  value={transactionDetails.description}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, description: e.target.value })
+                  }
                 />
                 <input
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   placeholder="Condition"
-                  value={condition}
-                  onChange={(e) => setCondition(e.target.value)}
+                  value={transactionDetails.condition}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, condition: e.target.value })
+                  }
                 />
                 <input
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   placeholder="Curator ID"
-                  value={curatorId}
-                  onChange={(e) => setCuratorId(e.target.value)}
+                  value={transactionDetails.curatorId}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, curatorId: e.target.value })
+                  }
                 />
+                <input
+    type="text"
+    className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+    placeholder="Recipient's Public Key"
+    value={recipient}
+    onChange={(e) => setRecipient(e.target.value)}
+  />
                 <input
                   type="text"
                   className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
                   placeholder="Museum ID"
-                  value={museumId}
-                  onChange={(e) => setMuseumId(e.target.value)}
+                  value={transactionDetails.museumId}
+                  onChange={(e) =>
+                    setTransactionDetails({ ...transactionDetails, museumId: e.target.value })
+                  }
                 />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Recipient's Public Key"
-                  value={recipient}
-                  onChange={(e) => setRecipient(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter Image URL"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                />
-                <div className="flex justify-between items-center mt-8">
-                  <button
-                    type="submit"
-                    className="px-8 py-2 bg-blue-500 text-black rounded-lg shadow-md hover:bg-blue-600"
-                  >
-                    Add Artifact
-                  </button>
-                  <a
-                    href="/auth/login"
-                    className="text-Black-200 option-button px-4 py-2 border border-gray-400 rounded-lg hover:bg-gray-100"
-                  >
-                    Back to Dashboard
-                  </a>
-                </div>
+
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md"
+                >
+                  Submit Transaction
+                </button>
               </form>
             </div>
           </div>
         </div>
       </div>
+
+      <NotificationModal
+        show={showModal}
+        title={modalTitle}
+        message={modalMessage}
+        onClose={handleCloseModal}
+      />
     </>
   );
-};
+}
 
-TransactionForm.layout = TransactionLayout;
-
-export default TransactionForm;
+ArtifactTransactionPage.layout = TransactionLayout;
 

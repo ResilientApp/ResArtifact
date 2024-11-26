@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import DarkNavbar from "components/Navbars/AuthNavbar.js";
 import { useRouter } from 'next/router';  // Import useRouter
+import { useAuth, login, logout } from "../api/handleAuthenticated"; // Import authenticated
 
 // added resilientdb stuff
 import Loader from 'components/ResilientDB/Loader.js';
-
 // layout for page
 import Auth from "layouts/Auth.js";
 
@@ -15,35 +15,30 @@ export default function Login() {
 
     const Login = dynamic(() => import('components/ResilientDB/Login.js'), { ssr: false });
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { isAuthenticated, login, logout } = useAuth();
     const [token, setToken] = useState(null);
     const [isLoadingAfterLogin, setIsLoadingAfterLogin] = useState(false);
 
     useEffect(() => {
-      const storedToken = sessionStorage.getItem('token');
+      const storedToken = sessionStorage.getItem("token");
       if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
+        login();
       }
-    }, []);
+    }, [login]);
 
     const handleLogin = (authToken) => {
       setIsLoadingAfterLogin(true);
       setToken(authToken);
       sessionStorage.setItem('token', authToken);
+      login();
+      setIsLoadingAfterLogin(false);
+  };
 
-      setTimeout(() => {
-        setIsAuthenticated(true);
-        setIsLoadingAfterLogin(false);
-        // No need for redirection, just display the dashboard after login
-      }, 2000);
-    };
-
-    const handleLogout = () => {
-      setIsAuthenticated(false);
+  const handleLogout = () => {
+      logout();
       setToken(null);
       sessionStorage.removeItem('token');
-    };
+  };
 
     return (
       <>

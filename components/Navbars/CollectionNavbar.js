@@ -2,10 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { useAuth } from "../../pages/api/handleAuthenticated"; // Import authenticated
 
-// components
-
-import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
-
 export default function Navbar(props) {
   const { isAuthenticated } = useAuth();
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -37,11 +33,6 @@ export default function Navbar(props) {
           id="example-navbar-warning"
         >
           <ul className="flex flex-col lg:flex-row list-none items-center lg:ml-auto">
-            <a
-                className="lg:text-blueGray-700 lg:hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="/artifact/home">
-                View Collection
-            </a>
             { isAuthenticated ? (
               <a
                 className="lg:text-blueGray-700 lg:hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"

@@ -1,7 +1,7 @@
 import React from "react";
 import CardArtifact from 'components/Cards/CardArtifact';
 import SortByDropdown from 'components/Dropdowns/SortByDropdown'
-import IndexNavbar from 'components/Navbars/IndexNavbar';
+import Navbar from 'components/Navbars/CollectionNavbar';
 import FooterSmall from "components/Footers/FooterDark.js";
 
 export default function ArtifactHomepage({allArtifactsData}) {
@@ -11,7 +11,7 @@ export default function ArtifactHomepage({allArtifactsData}) {
     ))
     return(
         <>
-            <IndexNavbar fixed/>
+            <Navbar fixed/>
             <section className="relative pt-20 px-6 min-h-screen pb-20">
                 <div className="px-6 pt-6 ">
                     <div className="font-semibold text-4xl text-blueGray-600">

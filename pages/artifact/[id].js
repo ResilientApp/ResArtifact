@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from 'components/Navbars/IndexNavbar'
+import Navbar from 'components/Navbars/CollectionNavbar'
 import Footer from 'components/Footers/FooterDark'
 import CardTransaction from 'components/Cards/CardTransaction'
 

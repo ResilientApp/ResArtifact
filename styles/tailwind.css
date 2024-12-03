@@ -2102,6 +2102,19 @@ select {
   height: 6rem;
 }
 
+.h-80 {
+  height: 20rem;
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.artifact-square {
+  height: 6.5rem;
+  width: 6.5rem;
+}
+
 .h-auto {
   height: auto;
 }
@@ -2118,8 +2131,8 @@ select {
   height: 95px;
 }
 
-.h-120-px {
-  height: 120px;
+.h-140-px {
+  height: 200px;
 }
 
 .h-350-px {
@@ -3348,6 +3361,14 @@ select {
   background-color: rgba(203, 213, 225, 1);
 }
 
+.hover\:bg-blueGray-200:hover {
+  background-color: rgba(226, 232, 240, 1);
+}
+
+.hover\:bg-lightBlue-400:hover {
+  background-color: rgba(150, 210, 258, var(--tw-bg-opacity));
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3573,8 +3594,8 @@ select {
   width: auto;
 }
 
-.w-120-px {
-  width: 120px;
+.w-140-px {
+  width: 200px;
 }
 
 .w-300-px {
@@ -3696,6 +3717,7 @@ select {
 
 .rotate-180 {
   --tw-rotate: 180deg;
+  transform: scale(-1, -1);
 }
 
 .transition-all {

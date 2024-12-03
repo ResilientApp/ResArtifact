@@ -63,14 +63,10 @@ export default function CombinedPage({ allArtifactsData }) {
         <hr className="border-b-1 pb-2 border-blueGray-600" />
 
 
-        <div className="flex flex-row mt-10 px-12 justify-center">
+        <div className="flex flex-row mt-8 px-8 justify-center">
 
           <div className="w-1/4 px-4 py-4 mr-10 bg-blueGray-400 flex flex-col items-center shadow rounded">
-            <h3 className="text-lg font-bold">Filters</h3>
-            <div className="w-full mt-4">
-              <p className="text-white text-sm font-bold block rounded uppercase mb-1">Sort By:</p>
-              <SortByDropdown />
-            </div>
+            <h3 className="text-md font-bold uppercase text-white">Search by Name</h3>
 
             <div className="mt-4 w-full">
               <form className="flex items-center justify-center">
@@ -86,13 +82,36 @@ export default function CombinedPage({ allArtifactsData }) {
                 </button>
               </form>
             </div>
+
+            <p className="text-xs font-semibold uppercase text-white mt-4 mb-4">or</p>
+            <h3 className="text-md font-bold uppercase text-white">Search by Filters</h3>
+
+            <div className="w-full mt-4">
+              <p className="text-white text-sm font-semibold block rounded uppercase mb-1">Sort By:</p>
+              <SortByDropdown />
+            </div>
+            <div className="w-full mt-4 flex justify-between items-center">
+              <p className="text-sm font-bold uppercase text-white">Min. Year</p>
+              <input 
+                className=" ml-4 px-2 py-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none w-2 ease-linear transition-all duration-150 border-1 border-blueGray-400"
+                placeholder="ex. 1600"></input>
+            </div>
+            <div className="w-full mt-4 flex justify-between items-center">
+              <p className="text-sm font-bold uppercase text-white">Max. Year</p>
+              <input 
+                className="ml-6 px-2 py-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none w-2 ease-linear transition-all duration-150 border-1 border-blueGray-400"
+                placeholder="ex. 2005"></input>
+            </div>
+            <button type="submit" className="mt-6 mb-4 px-2 py-1 bg-blueGray-600 text-white text-xs font-bold block rounded uppercase">
+                  Filter
+            </button>
+            
           </div>
 
 
           <div className="w-full">
 
-            <div className="flex flex-wrap justify-center mt-6 mb-6">
-              
+            <div className="flex flex-wrap justify-start">
               {/* Dynamic Transactions */}
               {loading && <p className="text-center text-blueGray-700">Loading transactions...</p>}
               {error && <p className="text-center text-red-500">{error}</p>}
@@ -108,7 +127,7 @@ export default function CombinedPage({ allArtifactsData }) {
 
                 return (
                   <div key={index} className="px-4 mb-4 w-auto">
-                    <a href={`/artifact/${id}`}> {/* Keep the link functional with 'id' */}
+                    <a href={`/artifact/${id}`}>
                       <CardArtifact 
                         params={{
                           id: id,       // Pass the correct ID here

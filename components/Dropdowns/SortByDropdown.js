@@ -22,7 +22,7 @@ const SortByDropdown = () => {
   return (
     <>
       <a
-        className="block font-semibold text-blueGray-600 text-sm mb-2 bg-white px-2 py-2 rounded"
+        className="block font-semibold text-blueGray-600 text-sm mb-2 bg-white px-2 py-2 rounded flex justify-between items-center"
         href="#pablo"
         ref={btnDropdownRef}
         onClick={(e) => {
@@ -31,6 +31,10 @@ const SortByDropdown = () => {
         }}
       >
         {dropdownText}
+        <p className={
+          (dropdownPopoverShow ? "font-bold" : "rotate-180") +
+          " font-bold"
+        }>^</p>
       </a>
       <div
         ref={popoverDropdownRef}

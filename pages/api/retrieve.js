@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 const mongoConfig = {
   uri: 'mongodb://localhost:27017',
   dbName: 'art',
-  collectionName: 'collection',
+  collectionName: 'art_his',
 };
 
 export default async function handler(req, res) {
@@ -11,7 +11,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Only GET requests are allowed' });
   }
 
-  const targetPublicKey = req.query.publicKey; 
+  const targetPublicKey = req.query.publicKey;
+
+  if (!targetPublicKey) {
+    return res.status(400).json({ message: 'Public key is required' });
+  }
 
   const client = new MongoClient(mongoConfig.uri);
 
@@ -22,21 +26,12 @@ export default async function handler(req, res) {
 
     console.log('Connected to MongoDB.');
 
-    // Updated aggregation pipeline
+    // Aggregation pipeline to retrieve all transactions with matching public key
     const pipeline = [
-      { $unwind: "$transactions" },
-      { $unwind: "$transactions.value.inputs" },
-      { $match: { "transactions.value.inputs.owners_before": targetPublicKey } },
-      { $match: { "transactions.value.asset.data.name": { $exists: true } } }, // Ensure 'name' exists
-      { $sort: { "transactions.value.asset.data.timestamp": -1 } },
-      {
-        $group: {
-          _id: "$_id",
-          document: { $first: "$$ROOT" }
-        }
-      },
-      { $replaceRoot: { newRoot: "$document" } }, // Replace with the grouped document
-      { $project: { transaction: "$transactions", _id: 0 } }, // Project the desired fields
+      { $unwind: "$transaction.transactions" }, // Unwind the transactions array
+      { $unwind: "$transaction.transactions.value.outputs" }, // Unwind outputs within transactions
+      { $match: { "transaction.transactions.value.outputs.public_keys": targetPublicKey } }, // Match public key
+      { $project: { _id: 0, transaction: "$transaction.transactions.value" } }, // Return transaction details
     ];
 
     const cursor = collection.aggregate(pipeline);

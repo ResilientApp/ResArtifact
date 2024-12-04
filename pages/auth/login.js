@@ -54,7 +54,7 @@ export default function Login() {
               </Link>
             </div>
             <div className="w-1/2 flex justify-center">
-              <Link href="/artifact/home">
+              <Link href="/auth/search">
                 <button className="option-button bg-blueGray-700  h- hover:bg-blueGray-400 text-white font-bold py- px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
                   View All Artifacts
                 </button>

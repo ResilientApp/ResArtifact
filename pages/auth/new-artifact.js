@@ -4,22 +4,23 @@ import NotificationModal from "pages/NotificationModal";
 import TransactionLayout from "layouts/Transaction.js";
 
 const TransactionForm = ({ onLogout, token }) => {
-  
   const [name, setName] = useState("");
-  const [uniqueId, setUniqueId] = useState(""); 
+  const [uniqueId, setUniqueId] = useState("");
   const [origin, setOrigin] = useState("");
-  const [originYear, setOriginYear] = useState("");  
+  const [originYear, setOriginYear] = useState("");
   const [description, setDescription] = useState("");
   const [condition, setCondition] = useState("");
+  const [curator, setCurator] = useState("");
   const [curatorId, setCuratorId] = useState("");
-  const [museumId, setMuseumId] = useState("");
+  const [owner, setOwner] = useState(""); // Changed from museumId to owner
   const [recipient, setRecipient] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
   const [recipientPublicKey, setRecipientPublicKey] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");  
+  const [imageUrl, setImageUrl] = useState("");
+  const [date, setDate] = useState("");
   const sdkRef = useRef(null);
 
   const fixedAmount = "44";
@@ -96,20 +97,18 @@ const TransactionForm = ({ onLogout, token }) => {
       return;
     }
 
-
     const parsedData = {
       name,
-      uniqueId, 
+      uniqueId,
       origin,
       originYear,
       description,
       condition,
+      curator,
       curatorId,
-      museumId,
-    };
-
-    const metadata = {
-      image: imageUrl, 
+      owner, // Changed from museumId to owner
+      imageUrl,
+      date,
     };
 
     if (sdkRef.current) {
@@ -119,7 +118,7 @@ const TransactionForm = ({ onLogout, token }) => {
         amount: fixedAmount,
         data: parsedData,
         recipient: recipient,
-        metadata: metadata,  // Include metadata with image URL
+        metadata: "", // Include metadata with image URL
       });
     } else {
       setModalTitle("Error");
@@ -145,94 +144,206 @@ const TransactionForm = ({ onLogout, token }) => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8 px-4 lg:px-10 py-10">
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Artifact Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Unique ID"
-                  value={uniqueId}
-                  onChange={(e) => setUniqueId(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Place of Origin"
-                  value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
-                />
-                <input
-                  type="number"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Origin Year"
-                  value={originYear}
-                  onChange={(e) => setOriginYear(e.target.value)}
-                />
-                <textarea
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Artifact Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Condition"
-                  value={condition}
-                  onChange={(e) => setCondition(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Curator ID"
-                  value={curatorId}
-                  onChange={(e) => setCuratorId(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Museum ID"
-                  value={museumId}
-                  onChange={(e) => setMuseumId(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Recipient's Public Key"
-                  value={recipient}
-                  onChange={(e) => setRecipient(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter Image URL"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                />
-                <div className="flex justify-between items-center mt-8">
+                {/* Name and Unique ID */}
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <label htmlFor="name" className="block text-gray-700 font-medium">
+                      Artifact Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <label htmlFor="uniqueId" className="block text-gray-700 font-medium">
+                      Unique ID
+                    </label>
+                    <input
+                      type="text"
+                      id="uniqueId"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={uniqueId}
+                      onChange={(e) => setUniqueId(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Origin and Origin Year */}
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <label htmlFor="origin" className="block text-gray-700 font-medium">
+                      Place of Origin
+                    </label>
+                    <input
+                      type="text"
+                      id="origin"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={origin}
+                      onChange={(e) => setOrigin(e.target.value)}
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <label htmlFor="originYear" className="block text-gray-700 font-medium">
+                      Origin Year
+                    </label>
+                    <input
+                      type="number"
+                      id="originYear"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={originYear}
+                      onChange={(e) => setOriginYear(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <label htmlFor="description" className="block text-gray-700 font-medium">
+                    Artifact Description
+                  </label>
+                  <textarea
+                    id="description"
+                    className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+
+                {/* Condition */}
+                <div>
+                  <label htmlFor="condition" className="block text-gray-700 font-medium">
+                    Condition
+                  </label>
+                  <input
+                    type="text"
+                    id="condition"
+                    className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    value={condition}
+                    onChange={(e) => setCondition(e.target.value)}
+                  />
+                </div>
+
+                {/* Curator and Curator ID */}
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <label htmlFor="curator" className="block text-gray-700 font-medium">
+                      Authenticated By
+                    </label>
+                    <input
+                      type="text"
+                      id="curator"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={curator}
+                      onChange={(e) => setCurator(e.target.value)}
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <label htmlFor="curatorId" className="block text-gray-700 font-medium">
+                      Authenticator ID
+                    </label>
+                    <input
+                      type="text"
+                      id="curatorId"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={curatorId}
+                      onChange={(e) => setCuratorId(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Owner and Recipient */}
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <label htmlFor="owner" className="block text-gray-700 font-medium">
+                      Owner
+                    </label>
+                    <input
+                      type="text"
+                      id="owner"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={owner}
+                      onChange={(e) => setOwner(e.target.value)}
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <label htmlFor="recipient" className="block text-gray-700 font-medium">
+                      Owner Public Key
+                    </label>
+                    <input
+                      type="text"
+                      id="recipient"
+                      className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      value={recipient}
+                      onChange={(e) => setRecipient(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Image URL */}
+                <div>
+                  <label htmlFor="imageUrl" className="block text-gray-700 font-medium">
+                    Image Link
+                  </label>
+                  <input
+                    type="text"
+                    id="imageUrl"
+                    className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    value={imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                  />
+                </div>
+
+                {/* Transaction Date */}
+                <div>
+                  <label htmlFor="transactionDate" className="block text-gray-700 font-medium">
+                    Transaction Date
+                  </label>
+                  <input
+                    type="date"
+                    id="transactionDate"
+                    className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="mt-6">
                   <button
                     type="submit"
-                    className="px-8 py-2 bg-blue-500 text-black rounded-lg shadow-md hover:bg-blue-600"
+                    className="w-full bg-blue-700 text-black py-2 px-4 rounded-lg shadow-md hover:bg-blue-600"
                   >
-                    Add Artifact
+                    Submit Transaction
                   </button>
-                  <a
-                    href="/auth/login"
-                    className="text-Black-200 option-button px-4 py-2 border border-gray-400 rounded-lg hover:bg-gray-100"
-                  >
-                    Back to Dashboard
-                  </a>
                 </div>
+                
+                <div className="mt-4 flex justify-center">
+  <a
+    href="auth/login"  
+    className="w-1/2 bg-gray-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-400 text-center inline-block"
+  >
+    Go Back
+  </a>
+</div>
+
               </form>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <NotificationModal
+          title={modalTitle}
+          message={modalMessage}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 };

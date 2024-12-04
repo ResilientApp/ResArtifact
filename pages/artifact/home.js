@@ -10,8 +10,7 @@ export default function CombinedPage({ allArtifactsData }) {
   const [error, setError] = useState(null);
   const [searchCriteria, setSearchCriteria] = useState("name");
   const [artifactSearch, setArtifactSearch] = useState("");
-
-
+  
   const fetchTransactions = async () => {
     setLoading(true);
     setError(null);
@@ -33,13 +32,19 @@ export default function CombinedPage({ allArtifactsData }) {
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
-
+  }, []);  
 
   const filteredArtifacts = allArtifactsData.filter(artifact => {
     return artifact.params.name.toLowerCase().includes(artifactSearch.toLowerCase());
   });
 
+  // New: Filtering transactions based on artifactSearch input
+  const filteredTransactions = transactions.filter(txn => {
+    const txnString = JSON.stringify(txn);
+    const nameMatch = txnString.match(/"name":"(.*?)"/);
+    const name = nameMatch ? nameMatch[1] : "";
+    return name.toLowerCase().includes(artifactSearch.toLowerCase());
+  });
 
   const handleArtifactSearchChange = (event) => {
     setArtifactSearch(event.target.value);
@@ -62,9 +67,7 @@ export default function CombinedPage({ allArtifactsData }) {
         </div>
         <hr className="border-b-1 pb-2 border-blueGray-600" />
 
-
         <div className="flex flex-row mt-8 px-8 justify-center">
-
           <div className="w-1/4 px-4 py-4 mr-10 bg-blueGray-400 flex flex-col items-center shadow rounded">
             <h3 className="text-md font-bold uppercase text-white">Search by Name</h3>
 
@@ -105,22 +108,21 @@ export default function CombinedPage({ allArtifactsData }) {
             <button type="submit" className="mt-6 mb-4 px-2 py-1 bg-blueGray-600 text-white text-xs font-bold block rounded uppercase">
                   Filter
             </button>
-            
           </div>
 
-
           <div className="w-full">
-
             <div className="flex flex-wrap justify-start">
               {/* Dynamic Transactions */}
               {loading && <p className="text-center text-blueGray-700">Loading transactions...</p>}
               {error && <p className="text-center text-red-500">{error}</p>}
-              {!loading && transactions.length === 0 && <p className="text-center text-blueGray-700">No transactions found.</p>}
-              {transactions.map((txn, index) => {
+              {!loading && filteredTransactions.length === 0 && <p className="text-center text-blueGray-700">No transactions found.</p>}
+              {filteredTransactions.map((txn, index) => {
                 const txnString = JSON.stringify(txn);
                 const nameMatch = txnString.match(/"name":"(.*?)"/);
-                const originYearMatch = txnString.match(/"originYear":"(.*?)"/);
+                const urlMatch = txnString.match(/"imageUrl":"(.*?)"/);
+                const originYearMatch = txnString.match(/"year":"(.*?)"/);
                 const name = nameMatch ? nameMatch[1] : "Unknown Name";
+                const url = urlMatch ? urlMatch[1] : "Unknown Name";
                 const originYear = originYearMatch ? originYearMatch[1] : "Unknown Year";
                 const idMatch = txnString.match(/"id":"(.*?)"/);
                 const id = idMatch ? idMatch[1] : "Unknown ID";
@@ -133,8 +135,8 @@ export default function CombinedPage({ allArtifactsData }) {
                           id: id,       // Pass the correct ID here
                           name: name,
                           year: originYear,
-                          description: "Transaction details", // Customize description if needed
-                          image: txn.image // Assuming transaction might have an image field
+                          
+                          image: url // Assuming transaction might have an image field
                         }} 
                       />
                     </a>

@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 const mongoConfig = {
   uri: 'mongodb://localhost:27017',
   dbName: 'art',
-  collectionName: 'collection',
+  collectionName: 'art_his',
 };
 
 export default async function handler(req, res) {
@@ -20,24 +20,11 @@ export default async function handler(req, res) {
 
     console.log('Connected to MongoDB.');
 
-    // Define aggregation pipeline to retrieve grouped transactions where 'name' exists
+    // Aggregation pipeline to retrieve all transactions
     const pipeline = [
-      { $match: { "transactions.value.asset.data.name": { $exists: true } } },
-      {
-        $group: {
-          _id: "$_id",
-          document: { $first: "$$ROOT" }
-        }
-      },
-      {
-        $replaceRoot: {
-          newRoot: "$document"
-        }
-      },
-      { $unwind: "$transactions" },
-      { $unwind: "$transactions.value.inputs" },
-      { $sort: { "transactions.value.asset.data.timestamp": -1 } }, // Sort transactions by timestamp
-      { $project: { transaction: "$transactions", _id: 0 } }
+      { $unwind: "$transaction.transactions" }, // Unwind the transactions array
+      { $unwind: "$transaction.transactions.value.outputs" }, // Unwind outputs within transactions
+      { $project: { _id: 0, transaction: "$transaction.transactions.value" } }, // Return transaction details
     ];
 
     const cursor = collection.aggregate(pipeline);
@@ -46,7 +33,7 @@ export default async function handler(req, res) {
     if (transactions.length > 0) {
       res.status(200).json({ transactions });
     } else {
-      res.status(404).json({ message: 'No transactions found.' });
+      res.status(404).json({ message: 'No transactions found' });
     }
   } catch (error) {
     console.error('Error fetching transactions:', error);

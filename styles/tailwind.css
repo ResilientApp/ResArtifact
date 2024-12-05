@@ -2171,6 +2171,11 @@ select {
   line-height: 1.75rem;
 }
 
+.hover\:text-lg:hover {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -2364,6 +2369,10 @@ select {
 }
 
 .ml-4 {
+  margin-left: 1rem;
+}
+
+.hover\:ml-4:hover {
   margin-left: 1rem;
 }
 
@@ -3730,8 +3739,36 @@ select {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, -webkit-transform;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, -webkit-transform;
+  transition-property: font-size, line-height;
+  transition-property: margin-left;
+  transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.hover\:button-swap-away:hover .start-off{
+  transform: translateY(0);
+}
+
+.hover\:button-swap-away:hover .start-on{
+  transform: translateY(-100%);
+}
+
+.start-off {
+  transform: translateY(100%);
+}
+
+.is-inv {
+  opacity: 0;
+}
+
+.start-on {
+  transform: translateY(0);
+}
+
+.start-on,
+.start-off {
+  transition: transform 0.4s ease-in-out;
 }
 
 .ease-linear {

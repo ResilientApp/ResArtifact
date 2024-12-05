@@ -6,7 +6,7 @@ export default function Transactions() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const publicKey = '8gBssy4LhfoJTgDkRRrEU46njEyWYCTv7YSsoF5uTz4n';
+  const publicKey = '8QkgpLEShfkMEruc5SubiRPN3JagYWLvFAUG9Jy3bay4';
 
   // Fetch transactions on component mount
   useEffect(() => {

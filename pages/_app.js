@@ -12,6 +12,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "styles/tailwind.css";
 import "styles/ResDB.css"
 import "styles/modal.css"
+import "styles/timeline.css"
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);

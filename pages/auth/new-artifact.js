@@ -311,25 +311,26 @@ const TransactionForm = ({ onLogout, token }) => {
                   />
                 </div>
 
+                <div className="flex justify-center items-center flex-col mt-4">
                 {/* Submit Button */}
                 <div className="mt-6">
                   <button
                     type="submit"
-                    className="w-full bg-blue-700 text-black py-2 px-4 rounded-lg shadow-md hover:bg-blue-600"
+                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500"
                   >
                     Submit Transaction
                   </button>
                 </div>
                 
-                <div className="mt-4 flex justify-center">
-  <a
-    href="auth/login"  
-    className="w-1/2 bg-gray-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-400 text-center inline-block"
-  >
-    Go Back
-  </a>
-</div>
-
+                <div className="mt-4">
+                  <a
+                    href="auth/login"  
+                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-400 text-center inline-block"
+                  >
+                    Go Back
+                  </a>
+                </div>
+                </div>
               </form>
             </div>
           </div>

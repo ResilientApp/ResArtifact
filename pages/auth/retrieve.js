@@ -6,7 +6,7 @@ export default function Transactions() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const publicKey = '8QkgpLEShfkMEruc5SubiRPN3JagYWLvFAUG9Jy3bay4';
+  const publicKey = '8gBssy4LhfoJTgDkRRrEU46njEyWYCTv7YSsoF5uTz4n';
 
   // Fetch transactions on component mount
   useEffect(() => {
@@ -74,6 +74,7 @@ export default function Transactions() {
           const curatorMatch = txnString.match(/"curator":"(.*?)"/);
           const curatorIdMatch = txnString.match(/"curatorId":"(.*?)"/);
           const museumIdMatch = txnString.match(/"museumId":"(.*?)"/);
+          const imageMatch = txnString.match(/"imageUrl":"(.*?)"/);
 
           const name = nameMatch ? nameMatch[1] : "Unknown Name";
           const uniqueid = uniqueidMatch ? uniqueidMatch[1] : "Unknown Id";
@@ -83,6 +84,7 @@ export default function Transactions() {
           const curator = curatorMatch ? curatorMatch[1] : "Unknown Curator";
           const curatorId = curatorIdMatch ? curatorIdMatch[1] : "Unknown Curator";
           const museumId = museumIdMatch ? museumIdMatch[1] : "Unknown Museum";
+          const url = imageMatch ? imageMatch[1] : "Unknown Museum";
 
           return (
             <div key={index} className="relative flex flex-col items-center min-w-0 break-words w-full lg:w-4/12 mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transition-transform transform hover:scale-105 hover:shadow-2xl hover:rotate-2">
@@ -92,7 +94,7 @@ export default function Transactions() {
           
                 <div className="w-full h-72 bg-gray-300 rounded-lg mb-4 overflow-hidden flex justify-center items-center">
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Mona_Lisa_bw_square.jpeg" 
+                    src={url}
                     alt="Artifact Image"
                     style={{
                       width: '300px', 
@@ -110,7 +112,7 @@ export default function Transactions() {
                 <p className="text-center"><strong>Description of Item:</strong> {description}</p>
                 <p className="text-center"><strong>Condition:</strong> {condition}</p>
                 <p className="text-center"><strong>Authenticated By:</strong> {curator}</p>
-                
+               
 
                 {/* Action Button */}
                 <button

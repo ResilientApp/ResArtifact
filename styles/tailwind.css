@@ -1461,6 +1461,10 @@ select {
   border-collapse: separate;
 }
 
+.border-lightBlue-200 {
+  border-color: rgb(59, 183, 255, 1)
+}
+
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgba(228, 228, 231, var(--tw-border-opacity));
@@ -1608,6 +1612,10 @@ select {
 
 .border {
   border-width: 1px;
+}
+
+.border-5 {
+  border-width: 5px;
 }
 
 .border-t-0 {
@@ -2373,7 +2381,7 @@ select {
 }
 
 .hover\:ml-4:hover {
-  margin-left: 1rem;
+  margin-left: 1rem;  
 }
 
 .mb-4 {
@@ -3374,6 +3382,10 @@ select {
   background-color: rgba(226, 232, 240, 1);
 }
 
+.hover\:bg-blueGray-500:hover {
+  background-color: rgba(100, 116, 139, 1);
+}
+
 .hover\:bg-lightBlue-400:hover {
   background-color: rgba(150, 210, 258, var(--tw-bg-opacity));
 }
@@ -3742,6 +3754,7 @@ select {
   transition-property: font-size, line-height;
   transition-property: margin-left;
   transition-property: transform;
+  transition-property: background-color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -3770,6 +3783,32 @@ select {
 .start-off {
   transition: transform 0.4s ease-in-out;
 }
+
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
+}
+.translate-y-10 {
+  transform: translateY(2.5rem);
+}
+.translate-y-0 {
+  transform: translateY(0);
+}
+
+.hidden-content {
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+}
+
+.visible-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease-in-out;
+}
+
 
 .ease-linear {
   transition-timing-function: linear;
@@ -4268,8 +4307,3 @@ select {
 
 @media (min-width: 1536px) {
 }
-
-
-
-
-

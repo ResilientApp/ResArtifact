@@ -1,10 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from 'components/Navbars/IndexNavbar';
 import Footer from 'components/Footers/FooterGray';
 import CardTransaction from 'components/Cards/CardTransaction';
 
 export default function ArtifactPage() {
+  const tableRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+        else {
+          setIsVisible(false)
+        }
+      },
+      {
+        threshold: 0.40,
+      }
+    );
+
+    if (tableRef.current) {
+      observer.observe(tableRef.current);
+    }
+
+    return () => {
+      if (tableRef.current) {
+        observer.unobserve(tableRef.current);
+      }
+    };
+  }, []);
+
+
   // const [transaction, setTransaction] = useState(null);
   
   // const [loading, setLoading] = useState(true);
@@ -68,24 +99,28 @@ export default function ArtifactPage() {
   const url = "https://elearningchips.com/wp-content/uploads/2017/02/ph_024_043_pw1.jpg"
   const origin = "Vu House"
   const originYear = 2018
-  const description = "Cutest boy in all the land."
+  const description = "Cutest boy in all the land. This is my dog, the picture is unrelated."
   const curatorId = "vupucaspie"
   
 
   return (
     <>
       <Navbar />
-      <section className="relative pt-20 min-h-screen pb-20 bg-gray-200">
+      <section className="relative pt-20 min-h-screen pb-20 bg-gray-200 "
+      style={{
+        background: "url('/img/ancient-city.jpg')",
+        backgroundSize: 'cover',
+      }}>
         <a href="/artifact/home" className="text-blueGray-800 hover:text-blueGray-500 font-semibold px-6 hover:ml-4 transition-all ease-in  ">
           Back to Collection
         </a>
-        <div className="flex justify-center flex-wrap px-12 py-6 mt-6">
+        <div className="flex justify-center flex-wrap px-12 py-6 mt-8x">
           {/* Artifact details section */}
           <div className="flex flex-col items-center max-w-md mr-10 bg-white p-6 shadow-lg rounded-lg">
             <div className="text-center mb-6">
               <h2 className="text-3xl font-bold text-blueGray-600 mt-6">{name}</h2>
               <img
-                className="w-full h-auto rounded-lg shadow-lg mt-6"
+                className="w-full h-auto rounded-lg shadow-lg mt-10 mb-4"
                 src={url || '/default-image.jpg'} // Use fallback image if URL is not available
                 alt="Artifact Image"
               />
@@ -93,53 +128,53 @@ export default function ArtifactPage() {
 
             {/* Transaction details below the image */}
             
-            <div className="mt-4 mb-8 text-center">
-              <table className="border-collapse">
+            <div className="mt-4 mb-12 px-6 ">
+              <table>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Name:
                   </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 bg-blueGray-50">
+                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
                     {name}
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Description:
                   </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 bg-blueGray-50">
+                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
                     {description}
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Origin:
                   </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 bg-blueGray-50">
+                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
                     {origin}
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Year:
                   </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 bg-blueGray-50">
+                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
                     {originYear}
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     UID:
                   </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 bg-blueGray-50">
+                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
                     {uid}
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Curator:
                   </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 bg-blueGray-50">
+                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
                     {curatorId}
                   </td>
                 </tr>

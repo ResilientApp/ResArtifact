@@ -138,7 +138,12 @@ const TransactionForm = ({ onLogout, token }) => {
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
-            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border border-solid border-lightBlue-200 border-5"
+            // style={{
+            //   background: "url('/img/wall-artifact.jpg')",
+            //   backgroundSize: 'cover',
+            // }}
+            >
               <div className="text-blueGray-700 text-center mb-3 mt-10 font-bold text-2xl">
                 <p>Add a New Artifact</p>
               </div>
@@ -316,7 +321,7 @@ const TransactionForm = ({ onLogout, token }) => {
                 <div className="mt-6">
                   <button
                     type="submit"
-                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500"
+                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500 transition ease-in"
                   >
                     Submit Transaction
                   </button>
@@ -325,7 +330,7 @@ const TransactionForm = ({ onLogout, token }) => {
                 <div className="mt-4">
                   <a
                     href="auth/login"  
-                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-400 text-center inline-block"
+                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-400 text-center inline-block hover:bg-blueGray-500 transition ease-in"
                   >
                     Go Back
                   </a>

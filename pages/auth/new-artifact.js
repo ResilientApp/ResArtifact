@@ -12,7 +12,7 @@ const TransactionForm = ({ onLogout, token }) => {
   const [condition, setCondition] = useState("");
   const [curator, setCurator] = useState("");
   const [curatorId, setCuratorId] = useState("");
-  const [owner, setOwner] = useState(""); // Changed from museumId to owner
+  const [owner, setOwner] = useState(""); 
   const [recipient, setRecipient] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
@@ -118,7 +118,7 @@ const TransactionForm = ({ onLogout, token }) => {
         amount: fixedAmount,
         data: parsedData,
         recipient: recipient,
-        metadata: "", // Include metadata with image URL
+        metadata: "", 
       });
     } else {
       setModalTitle("Error");

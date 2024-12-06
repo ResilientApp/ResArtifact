@@ -87,11 +87,9 @@ export default function Transactions() {
           const url = imageMatch ? imageMatch[1] : "Unknown Museum";
 
           return (
-            <div key={index} className="relative flex flex-col items-center min-w-0 break-words w-full lg:w-4/12 mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transition-transform transform hover:scale-105 hover:shadow-2xl hover:rotate-2">
+            <div key={index} className="relative flex flex-col py-6 px-2 items-center min-w-0 break-words w-full lg:w-4/12 mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transition-transform transform hover:scale-105 hover:shadow-2xl hover:rotate-2">
               
-               
-            <div className="flex flex-col items-center max-w-md mx-4 bg-white p-6 shadow-lg rounded-lg">
-            <div className="text-center mb-6">
+            <div className="text-center mb-6 ">
               <h2 className="text-3xl font-bold text-blueGray-600 mt-6">{name}</h2>
               <img
                 className="w-full h-auto rounded-lg shadow-lg mt-10 mb-4"
@@ -101,68 +99,22 @@ export default function Transactions() {
             </div>
             {/* Transaction details below the image */}
             
-            <div className="mt-4 mb-12 px-6 ">
-              <table>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
-                    Name:
-                  </th>
-                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
-                    {name}
-                  </td>
-                </tr>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
-                    Description:
-                  </th>
-                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
-                    {description}
-                  </td>
-                </tr>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
-                    Origin:
-                  </th>
-                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
-                    {origin}
-                  </td>
-                </tr>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
-                    Condition:
-                  </th>
-                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
-                    {condition}
-                  </td>
-                </tr>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
-                    UID:
-                  </th>
-                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
-                    {uniqueid}
-                  </td>
-                </tr>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
-                    Curator:
-                  </th>
-                  <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
-                    {curatorId}
-                  </td>
-                </tr>
-                </table>
-            </div>
-          </div>
-                {/* Action Button */}
+              <div className="px-4 py-4 flex-col justify-start text-left">
+                  <p className ="text-blueGray-700"><strong className="font-bold">Name:</strong> {name}</p>
+                  <p className="text-blueGray-700"><strong className="font-bold">Unique ID:</strong> {uniqueid}</p>
+                  <p className="text-blueGray-700"><strong className="font-bold">Origin Place:</strong> {origin}</p>
+                  <p className="text-blueGray-700"><strong className="font-bold">Description:</strong> {description}</p>
+                  <p className="text-blueGray-700"><strong className="font-bold">Condition:</strong> {condition}</p>
+                  <p className="text-blueGray-700"><strong className="font-bold">Curator:</strong> {curatorId}</p>
+                  <p className="text-blueGray-700"><strong className="font-bold">Museum:</strong> {museumId}</p>
+              </div>
                 <button
                 onClick={() => handleTransfer(txn)}
                 className="mt-4 bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500 transition ease-inl"
               >
                 Transfer
               </button>
-
-              </div>
+            </div>
           );
         })}
       </div>

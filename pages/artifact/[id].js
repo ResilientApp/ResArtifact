@@ -14,9 +14,9 @@ export default function ArtifactPage() {
    const router = useRouter();
    const { id } = router.query;
 
-   // First useEffect: Fetch transaction details based on ID
+ 
   useEffect(() => {
-    if (!id) return; // Do nothing if id is not available yet (initial render)
+    if (!id) return; 
 
      const fetchTransaction = async () => {
        setLoading(true);
@@ -30,7 +30,7 @@ export default function ArtifactPage() {
         }
 
         const data = await response.json();
-        setTransaction(data.transactions); // Set the transaction data
+        setTransaction(data.transactions); 
        } catch (error) {
         setError(error.message);
       } finally {
@@ -50,14 +50,14 @@ export default function ArtifactPage() {
    const nameMatch = txnString.match(/"name":"(.*?)"/);
    const idMatch = txnString.match(/"uniqueId":"(.*?)"/);
    const originMatch = txnString.match(/"origin":"(.*?)"/);
-   const originYearMatch = txnString.match(/"year":"(.*?)"/);
+   const originYearMatch = txnString.match(/"originYear":"(.*?)"/);
    const descriptionMatch = txnString.match(/"description":"(.*?)"/);
    const curatorIdMatch = txnString.match(/"curatorId":"(.*?)"/);
    const urlMatch = txnString.match(/"imageUrl":"(.*?)"/);
 
    const name = nameMatch ? nameMatch[1] : "Unknown Name";
    const uid = idMatch ? idMatch[1] : "Unknown UID";
-   const url = urlMatch ? urlMatch[1] : null; // If no URL, set to null
+   const url = urlMatch ? urlMatch[1] : null; 
  const origin = originMatch ? originMatch[1] : "Unknown Origin";
   const originYear = originYearMatch ? originYearMatch[1] : "Unknown Year";
   const description = descriptionMatch ? descriptionMatch[1] : "No description available";
@@ -76,23 +76,24 @@ export default function ArtifactPage() {
           Back to Collection
         </a>
         <div className="flex justify-center flex-wrap px-12 py-6 mt-8x">
-          {/* Artifact details section */}
-          <div className="flex flex-col items-center max-w-md bg-white p-6 shadow-lg rounded-lg">
+          
+          <div className="flex flex-col items-center max-w-md bg-white p-6 shadow-lg rounded-lg" style={{backgroundColor: '#D2B48C', border: '4px solid #000', }}>
             <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold text-blueGray-600 mt-6">{name}</h2>
+              <h2 className="text-3xl font-bold text-black mt-6">{name}</h2>
               <img
                 className="w-full h-auto rounded-lg shadow-lg mt-10 mb-4"
-                src={url || '/default-image.jpg'} // Use fallback image if URL is not available
+                src={url || '/default-image.jpg'} 
                 alt="Artifact Image"
+                
               />
             </div>
 
-            {/* Transaction details below the image */}
+       
             
-            <div className="mt-4 mb-12 px-6 ">
-              <table>
-                <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
+            <div className="mt-4 mb-12 px-6 " >
+              <table style={{ border: '4px solid #654321' }}>
+                <tr >
+                  <th className="px-6 bg-blueGray-100 text-black align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Name:
                   </th>
                   <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
@@ -100,7 +101,7 @@ export default function ArtifactPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-black align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Description:
                   </th>
                   <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
@@ -108,7 +109,7 @@ export default function ArtifactPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-black align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Origin:
                   </th>
                   <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
@@ -116,7 +117,7 @@ export default function ArtifactPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-black align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Year:
                   </th>
                   <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
@@ -124,7 +125,7 @@ export default function ArtifactPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-black align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     UID:
                   </th>
                   <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
@@ -132,7 +133,7 @@ export default function ArtifactPage() {
                   </td>
                 </tr>
                 <tr>
-                  <th className="px-6 bg-blueGray-100 text-blueGray-500 align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
+                  <th className="px-6 bg-blueGray-100 text-black align-middle border border-solid border-blueGray-300 py-3 text-xs uppercase border-r-0 font-semibold text-left">
                     Curator:
                   </th>
                   <td className="border border-solid border-blueGray-200 px-6 align-middle border-l-0 text-sm p-4 bg-blueGray-50 text-left">
@@ -144,7 +145,7 @@ export default function ArtifactPage() {
           </div>
         </div>
 
-        {/* Show History Button */}
+       
         <div className="flex justify-center mt-10 relative inline-block object-contain overflow-hidden h-10 w-full hover:button-swap-away transition ease-in-out">
           <a
             href={`/artifact/history/${id}`}

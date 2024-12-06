@@ -52,6 +52,7 @@ function ArtifactTransactionPage({ onLogout, token }) {
         const originMatch = transactionString.match(/"origin":"(.*?)"/);
         const yearMatch = transactionString.match(/"originYear":"(.*?)"/);
         const descriptionMatch = transactionString.match(/"description":"(.*?)"/);
+        const imageUrlMatch = transactionString.match(/"imageUrl":"(.*?)"/);
         
         // Setting extracted values into the state
         setTransactionDetails({
@@ -60,6 +61,7 @@ function ArtifactTransactionPage({ onLogout, token }) {
           origin: originMatch ? originMatch[1] : "Unknown Origin",
           year: yearMatch ? yearMatch[1] : "Unknown Year",
           description: descriptionMatch ? descriptionMatch[1] : "No description available",
+          imageUrl: imageUrlMatch ? imageUrlMatch[1] : "No URL",
          
         });
       } catch (error) {
@@ -188,7 +190,12 @@ function ArtifactTransactionPage({ onLogout, token }) {
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
-            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border border-solid border-lightBlue-200 border-5"
+            // style={{
+            //   background: "url('/img/wall-artifact.jpg')",
+            //   backgroundSize: 'cover',
+            // }}
+            >
               <div className="text-blueGray-700 text-center mb-3 mt-10 font-bold text-2xl">
                 <p>Transfer the Artifact</p>
               </div>
@@ -240,10 +247,9 @@ function ArtifactTransactionPage({ onLogout, token }) {
                     <input
                       type="text"
                       className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                      placeholder="Year of Origin"
                       value={transactionDetails.year}
                       onChange={(e) =>
-                        setTransactionDetails({ ...transactionDetails, year: e.target.value })
+                        setTransactionDetails({ ...transactionDetails, originYear: e.target.value })
                       }
                       readOnly
                     />
@@ -327,13 +333,13 @@ function ArtifactTransactionPage({ onLogout, token }) {
                   <div>
                     <label className="block text-gray-700 font-bold mb-2">Image Link</label>
                     <input
-                      type="url"
+                      type="text"
                       className="form-control px-4 py-2 rounded-lg shadow-sm w-full border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                      
                       value={transactionDetails.imageUrl}
                       onChange={(e) =>
                         setTransactionDetails({ ...transactionDetails, imageUrl: e.target.value })
                       }
+                      
                     />
                   </div>
                   <div>
@@ -347,14 +353,26 @@ function ArtifactTransactionPage({ onLogout, token }) {
                       }
                     />
                   </div>
-                </div>          {/* Submit Button */}
-                <div className="flex justify-center mt-6">
+                </div>          
+                <div className="flex justify-center items-center flex-col mt-4">
+         
+                <div className="mt-6">
                   <button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-600 text-black px-6 py-3 rounded-lg shadow-md"
+                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500 transition ease-in"
                   >
-                    Transfer
+                    Transfer the Artifact
                   </button>
+                </div>
+                
+                <div className="mt-4">
+                  <a
+                    href="auth/retrieve"  
+                    className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-400 text-center inline-block hover:bg-blueGray-500 transition ease-in"
+                  >
+                    Go Back
+                  </a>
+                </div>
                 </div>
               </form>
             </div>

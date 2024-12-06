@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
 import DarkNavbar from "components/Navbars/AuthNavbar.js";
-import { useRouter } from 'next/router';  // Import useRouter
-import { useAuth, login, logout } from "../api/handleAuthenticated"; // Import authenticated
+import { useRouter } from 'next/router';  
+import { useAuth, login, logout } from "../api/handleAuthenticated"; 
 
 import Loader from 'components/ResilientDB/Loader.js';
 
@@ -43,11 +43,11 @@ export default function Login() {
       <>
         <DarkNavbar />
 
-        <div className="container mx-auto px-3 h-full">
-          <div className="flex content-center items-center justify-center">
-            <div className=" lg:w-1/12 xl:w-5/12"> {/* Reduced width of the white box */}
+        <div className="container mx-auto px-3 h-full" >
+          <div className="flex content-center items-center justify-center" >
+            <div className=" lg:w-1/12 xl:w-5/12" > 
               <div className={`relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transform translate-y-[-20px] ${isAuthenticated ? 'mt-20' : 'mt-2'}`}>
-                <div className="flex-auto px-4 lg:px-4 py-2">
+                <div className="flex-auto px-4 lg:px-4 py-2" style={{ border: '4px solid #FF6700' }}>
                   <div className="text-blueGray-700 text-center mt-6 mb-3 px-4 font-bold text-2xl">
                     {isAuthenticated ? (
                       <p>Welcome to Your Dashboard</p>  
@@ -127,11 +127,19 @@ export default function Login() {
                       </div>
                     </form>
                   )}
+                  
                 </div>
+                
               </div>
+              
             </div>
+            
           </div>
+          
+        
+     
         </div>
+        
       </>
     );
 }

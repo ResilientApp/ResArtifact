@@ -67,35 +67,42 @@ export default function ArtifactHistoryPage() {
     };
   };
 
-  // Helper function to generate a random color
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
 
-  // Get the name of the artifact from the first transaction
+ const getRandomLightYellowBrown = () => {
+  const getComponent = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1)) + min;
+
+  const red = getComponent(200, 255); 
+  const green = getComponent(170, 220); 
+  const blue = getComponent(120, 180); 
+  return `#${red.toString(16).padStart(2, '0')}${green
+    .toString(16)
+    .padStart(2, '0')}${blue.toString(16).padStart(2, '0')}`;
+};
+
   const artifactName = transactions.length > 0 ? extractTransactionDetails(transactions[0]).name : "Artifact";
 
   return (
     <>
-      <Navbar />
-      <section className="relative pt-20 px-6 min-h-screen pb-20 bg-gray-50">
-        <a href="/artifact/home" className="text-blueGray-800 hover:text-blueGray-500 px-6 mb-6">
+       <Navbar />
+      <section className="relative pt-20 min-h-screen pb-20 bg-gray-200 "
+      style={{
+        background: "url('/img/history.jpg')",
+        backgroundSize: 'cover',
+      }}>
+        <a href="/artifact/home" className="text-blueGray-800 hover:text-blueGray-500 font-semibold px-6 hover:ml-4 transition-all ease-in  ">
           Back to Collection
         </a>
+        
 
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-blue-700">History of {artifactName}</h2>
+        <div className="text-center mb-6" style={{fontSize: '30px'}}>
+          <h2 className="text-3xl font-bold text-blue-700" >History of {artifactName}</h2>
         </div>
 
-        <div className="timeline mx-auto max-w-4xl" style={{ marginLeft: '37%' }}>
+        <div className="timeline mx-auto max-w-4xl" style={{ marginLeft: '40%' }}>
           {[...transactions].reverse().map((txn, index) => {
             const details = extractTransactionDetails(txn);
-            const randomColor = getRandomColor(); // Get a random color for the background
+            const randomColor = getRandomLightYellowBrown();
             return (
               <div
                 key={index}
@@ -104,15 +111,13 @@ export default function ArtifactHistoryPage() {
               >
                 <div 
                   className="timeline-content"
-                  style={{ backgroundColor: randomColor }} // Apply random background color
+                  style={{ backgroundColor: randomColor ,border: '2px solid black'}} 
                 >
-                  <h3 className="font-bold text-lg">
-                    {index === 0 ? "Current Owner" : `Past Owner #${index}`}
-                  </h3>
-                  <p><strong>Owner:</strong> {details.owner}</p>
-                  <p><strong>Acquired On:</strong> {details.date}</p>
-                  <p><strong>Authenticated By:</strong> {details.curator}</p>
-                  <p><strong>Authenticator ID:</strong> {details.curatorId}</p>
+                   <h3 style={{ fontSize: '30px', fontWeight: 'bold' }}>
+    					<strong>{details.owner}</strong> </h3>
+  		<p style={{ fontSize: '21px' }}><strong>Acquired On:</strong> {details.date}</p>
+  		<p style={{ fontSize: '21px' }}><strong>Authenticated By:</strong> {details.curator}</p>
+  		<p style={{ fontSize: '21px' }}><strong>Authenticator ID:</strong> {details.curatorId}</p>
                 </div>
               </div>
             );
@@ -179,7 +184,7 @@ export default function ArtifactHistoryPage() {
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     min-height: 200px; 
-    min-width: 400px; /* Minimum height */
+    min-width: 400px; 
   }
 
   @keyframes fadeInUp {

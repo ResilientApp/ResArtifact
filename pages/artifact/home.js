@@ -38,7 +38,7 @@ export default function CombinedPage({ allArtifactsData }) {
     return artifact.params.name.toLowerCase().includes(artifactSearch.toLowerCase());
   });
 
-  // New: Filtering transactions based on artifactSearch input
+  
   const filteredTransactions = transactions.filter(txn => {
     const txnString = JSON.stringify(txn);
     const nameMatch = txnString.match(/"name":"(.*?)"/);
@@ -53,7 +53,7 @@ export default function CombinedPage({ allArtifactsData }) {
   return (
     <>
       <IndexNavbar fixed />
-      <section className="relative pt-20 px-6 min-h-screen pb-20">
+      <section className="relative pt-20 px-6 min-h-screen pb-20" style={{backgroundColor: '#FCE9D4'}}>
         <div className="pb-32 pt-20 text-left bg-full pl-10" style={{
             background: "linear-gradient(to bottom, white, transparent), url('/img/ancient-ruins.jpg')",
             backgroundSize: 'cover',
@@ -67,9 +67,9 @@ export default function CombinedPage({ allArtifactsData }) {
         </div>
         <hr className="border-b-1 pb-2 border-blueGray-600" />
 
-        <div className="flex flex-row mt-8 px-8 justify-center">
-          <div className="w-1/4 px-4 py-4 mr-10 bg-blueGray-400 flex flex-col items-center shadow rounded">
-            <h3 className="text-md font-bold uppercase text-white">Search by Name</h3>
+        <div className="flex flex-row mt-8 px-8 justify-center" >
+          <div className="w-1/4 px-4 py-4 mr-10 bg-blueGray-400 flex flex-col items-center shadow rounded" style={{backgroundColor: '#FFB800', border: '2px solid #000'}}>
+            <h3 className="text-md font-bold uppercase text-black">Search by Name</h3>
 
             <div className="mt-4 w-full">
               <form className="flex items-center justify-center">
@@ -86,21 +86,21 @@ export default function CombinedPage({ allArtifactsData }) {
               </form>
             </div>
 
-            <p className="text-xs font-semibold uppercase text-white mt-4 mb-4">or</p>
-            <h3 className="text-md font-bold uppercase text-white">Search by Filters</h3>
+            <p className="text-xs font-semibold uppercase text-black mt-4 mb-4">or</p>
+            <h3 className="text-md font-bold uppercase text-black">Search by Filters</h3>
 
             <div className="w-full mt-4">
-              <p className="text-white text-sm font-semibold block rounded uppercase mb-1">Sort By:</p>
+              <p className="text-black text-sm font-semibold block rounded uppercase mb-1">Sort By:</p>
               <SortByDropdown />
             </div>
             <div className="w-full mt-4 flex justify-between items-center">
-              <p className="text-sm font-bold uppercase text-white">Min. Year</p>
+              <p className="text-sm font-bold uppercase text-black">Min. Year</p>
               <input 
                 className=" ml-4 px-2 py-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none w-2 ease-linear transition-all duration-150 border-1 border-blueGray-400"
                 placeholder="ex. 1600"></input>
             </div>
             <div className="w-full mt-4 flex justify-between items-center">
-              <p className="text-sm font-bold uppercase text-white">Max. Year</p>
+              <p className="text-sm font-bold uppercase text-black">Max. Year</p>
               <input 
                 className="ml-6 px-2 py-1 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none w-2 ease-linear transition-all duration-150 border-1 border-blueGray-400"
                 placeholder="ex. 2005"></input>
@@ -112,7 +112,7 @@ export default function CombinedPage({ allArtifactsData }) {
 
           <div className="w-full">
             <div className="flex flex-wrap justify-start">
-              {/* Dynamic Transactions */}
+             
               {loading && <p className="text-center text-blueGray-700">Loading transactions...</p>}
               {error && <p className="text-center text-red-500">{error}</p>}
               {!loading && filteredTransactions.length === 0 && <p className="text-center text-blueGray-700">No transactions found.</p>}
@@ -120,7 +120,7 @@ export default function CombinedPage({ allArtifactsData }) {
                 const txnString = JSON.stringify(txn);
                 const nameMatch = txnString.match(/"name":"(.*?)"/);
                 const urlMatch = txnString.match(/"imageUrl":"(.*?)"/);
-                const originYearMatch = txnString.match(/"year":"(.*?)"/);
+                const originYearMatch = txnString.match(/"originYear":"(.*?)"/);
                 const name = nameMatch ? nameMatch[1] : "Unknown Name";
                 const url = urlMatch ? urlMatch[1] : "Unknown Name";
                 const originYear = originYearMatch ? originYearMatch[1] : "Unknown Year";
@@ -132,11 +132,11 @@ export default function CombinedPage({ allArtifactsData }) {
                     <a href={`/artifact/${id}`}>
                       <CardArtifact 
                         params={{
-                          id: id,       // Pass the correct ID here
+                          id: id,     
                           name: name,
                           year: originYear,
                           
-                          image: url // Assuming transaction might have an image field
+                          image: url 
                         }} 
                       />
                     </a>
@@ -158,7 +158,7 @@ export default function CombinedPage({ allArtifactsData }) {
 export async function getStaticProps() {
   return {
     props: {
-      allArtifactsData: [],  // Replace with actual data fetching logic
+      allArtifactsData: [],  
     }
   };
 }

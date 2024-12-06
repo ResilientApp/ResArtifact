@@ -106,7 +106,7 @@ const TransactionForm = ({ onLogout, token }) => {
       condition,
       curator,
       curatorId,
-      owner, // Changed from museumId to owner
+      owner, 
       imageUrl,
       date,
     };
@@ -149,7 +149,7 @@ const TransactionForm = ({ onLogout, token }) => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8 px-4 lg:px-10 py-10">
-                {/* Name and Unique ID */}
+                
                 <div className="flex space-x-4">
                   <div className="w-1/2">
                     <label htmlFor="name" className="block text-gray-700 font-medium">
@@ -177,7 +177,7 @@ const TransactionForm = ({ onLogout, token }) => {
                   </div>
                 </div>
 
-                {/* Origin and Origin Year */}
+             
                 <div className="flex space-x-4">
                   <div className="w-1/2">
                     <label htmlFor="origin" className="block text-gray-700 font-medium">
@@ -205,7 +205,7 @@ const TransactionForm = ({ onLogout, token }) => {
                   </div>
                 </div>
 
-                {/* Description */}
+              
                 <div>
                   <label htmlFor="description" className="block text-gray-700 font-medium">
                     Artifact Description
@@ -260,7 +260,7 @@ const TransactionForm = ({ onLogout, token }) => {
                   </div>
                 </div>
 
-                {/* Owner and Recipient */}
+               
                 <div className="flex space-x-4">
                   <div className="w-1/2">
                     <label htmlFor="owner" className="block text-gray-700 font-medium">
@@ -288,7 +288,7 @@ const TransactionForm = ({ onLogout, token }) => {
                   </div>
                 </div>
 
-                {/* Image URL */}
+           
                 <div>
                   <label htmlFor="imageUrl" className="block text-gray-700 font-medium">
                     Image Link
@@ -317,13 +317,13 @@ const TransactionForm = ({ onLogout, token }) => {
                 </div>
 
                 <div className="flex justify-center items-center flex-col mt-4">
-                {/* Submit Button */}
+          
                 <div className="mt-6">
                   <button
                     type="submit"
                     className="bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500 transition ease-in"
                   >
-                    Submit Transaction
+                    Add the Artifact
                   </button>
                 </div>
                 

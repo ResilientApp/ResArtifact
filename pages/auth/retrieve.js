@@ -89,18 +89,17 @@ export default function Transactions() {
           return (
             <div key={index} className="relative flex flex-col py-6 px-2 items-center min-w-0 break-words w-full lg:w-4/12 mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transition-transform transform hover:scale-105 hover:shadow-2xl hover:rotate-2">
               
-            <div className="text-center mb-6 ">
-              <h2 className="text-3xl font-bold text-blueGray-600 mt-6">{name}</h2>
+            <div className="text-center mb-2 ">
+              <h2 className="text-3xl font-bold text-blueGray-600 mt-2">{name}</h2>
               <img
-                className="w-full h-auto rounded-lg shadow-lg mt-10 mb-4"
+                className="max-h-300-px max-w-300-px rounded-lg shadow-lg mt-6 mb-2"
                 src={url || '/default-image.jpg'} // Use fallback image if URL is not available
                 alt="Artifact Image"
               />
             </div>
             {/* Transaction details below the image */}
             
-              <div className="px-4 py-4 flex-col justify-start text-left">
-                  <p className ="text-blueGray-700"><strong className="font-bold">Name:</strong> {name}</p>
+              <div className="px-2 py-2 flex-col justify-start text-left">
                   <p className="text-blueGray-700"><strong className="font-bold">Unique ID:</strong> {uniqueid}</p>
                   <p className="text-blueGray-700"><strong className="font-bold">Origin Place:</strong> {origin}</p>
                   <p className="text-blueGray-700"><strong className="font-bold">Description:</strong> {description}</p>

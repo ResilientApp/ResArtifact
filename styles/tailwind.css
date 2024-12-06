@@ -2552,6 +2552,18 @@ select {
   max-width: 210px;
 }
 
+.max-h-210-px {
+  max-height: 210px;
+}
+
+.max-w-300-px {
+  max-width: 300px;
+}
+
+.max-h-300-px {
+  max-height: 300px;
+}
+
 .max-w-580-px {
   max-width: 580px;
 }

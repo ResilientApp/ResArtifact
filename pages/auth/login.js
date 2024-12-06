@@ -42,35 +42,15 @@ export default function Login() {
     return (
       <>
         <DarkNavbar />
-        
-        {/* Centered buttons in their respective halves */}
-        {isAuthenticated && (
-          <div className="flex justify-between w-full px-8 mt-6">
-            <div className="w-1/2 flex justify-center">
-              <Link href="/auth/new-artifact">
-                <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-28 px-36 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                  Add New Artifact
-                </button>
-              </Link>
-            </div>
-            <div className="w-1/2 flex justify-center">
-              <Link href="/auth/search">
-                <button className="option-button bg-blueGray-700  h- hover:bg-blueGray-400 text-white font-bold py- px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                  View All Artifacts
-                </button>
-              </Link>
-            </div>
-          </div>
-        )}
 
         <div className="container mx-auto px-3 h-full">
           <div className="flex content-center items-center justify-center">
             <div className=" lg:w-1/12 xl:w-5/12"> {/* Reduced width of the white box */}
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transform translate-y-[-20px]"> {/* Applied translate-y */}
                 <div className="flex-auto px-4 lg:px-4 py-2">
-                  <div className="text-blueGray-700 text-center mt-6 mb-3 font-bold text-2xl">
+                  <div className="text-blueGray-700 text-center mt-6 mb-3 px-4 font-bold text-2xl">
                     {isAuthenticated ? (
-                      <p>Welcome to your Dashboard</p>  
+                      <p>Welcome to Your Dashboard</p>  
                     ) : (
                       <p>Sign in with ResVault</p>  
                     )}
@@ -78,15 +58,37 @@ export default function Login() {
 
                   {/* Conditional rendering */}
                   {isAuthenticated ? (
-                    <div>
-                      {/* Centered button for Search My Artifacts */}
-                      <div className="flex justify-center mt-6">
-                        <Link href="/auth/retrieve">
-                          <button className="option-button bg-blueGray-700 hover:bg-blueGray-400 text-white font-bold py-1 px-96 text-3xl rounded shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
-                            Search My Artifacts
-                          </button>
-                        </Link>
+                    <div className="flex flex-col justify-center items-center w-full">
+                      <div className="flex justify-center mt-4 relative text-center inline-block object-contain overflow-hidden h-10 w-full hover:button-swap-away transition ease-in-out">
+                        <a
+                          href={`/auth/new-artifact`}
+                          className="start-on absolute bg-white shadow text-blueGray-600 font-bold py-2 px-6 rounded-lg"
+                        >
+                          Add New Artifact
+                        </a>
+                        <a
+                          href={`/auth/new-artifact`}
+                          className="start-off absolute start-offscreen bg-blueGray-700 shadow text-white font-bold py-2 px-6 rounded-lg"
+                        >
+                          Add New Artifact
+                        </a>
                       </div>
+                      <div className="flex flex-col justify-center items-center w-full mb-6">
+                        <div className="flex justify-center mt-4 relative text-center inline-block object-contain overflow-hidden h-10 w-full hover:button-swap-away transition ease-in-out">
+                          <a
+                            href={`/auth/search`}
+                            className="start-on absolute bg-white shadow text-blueGray-600 font-bold py-2 px-6 rounded-lg "
+                          >
+                            Search Artifacts
+                          </a>
+                          <a
+                            href={`/auth/search`}
+                            className="start-off absolute start-offscreen bg-blueGray-700 shadow text-white font-bold py-2 px-6 rounded-lg"
+                          >
+                            Search Artifacts
+                          </a>
+                        </div>
+                    </div>
                     </div>
                   ) : (
                     // Login form

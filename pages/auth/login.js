@@ -76,16 +76,16 @@ export default function Login() {
                       <div className="flex flex-col justify-center items-center w-full mb-6">
                         <div className="flex justify-center mt-4 relative text-center inline-block object-contain overflow-hidden h-10 w-full hover:button-swap-away transition ease-in-out">
                           <a
-                            href={`/auth/search`}
+                            href={`/auth/retrieve`}
                             className="start-on absolute bg-white shadow text-blueGray-600 font-bold py-2 px-6 rounded-lg "
                           >
-                            Search Artifacts
+                            View Personal Collection
                           </a>
                           <a
-                            href={`/auth/search`}
+                            href={`/auth/retrieve`}
                             className="start-off absolute start-offscreen bg-blueGray-700 shadow text-white font-bold py-2 px-6 rounded-lg"
                           >
-                            Search Artifacts
+                            View Personal Collection
                           </a>
                         </div>
                     </div>

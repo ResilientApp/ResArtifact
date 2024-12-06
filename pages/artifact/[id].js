@@ -77,7 +77,7 @@ export default function ArtifactPage() {
         </a>
         <div className="flex justify-center flex-wrap px-12 py-6 mt-8x">
           {/* Artifact details section */}
-          <div className="flex flex-col items-center max-w-md mr-10 bg-white p-6 shadow-lg rounded-lg">
+          <div className="flex flex-col items-center max-w-md bg-white p-6 shadow-lg rounded-lg">
             <div className="text-center mb-6">
               <h2 className="text-3xl font-bold text-blueGray-600 mt-6">{name}</h2>
               <img
@@ -145,7 +145,7 @@ export default function ArtifactPage() {
         </div>
 
         {/* Show History Button */}
-        <div className="flex justify-center mt-10 relative text-center inline-block object-contain overflow-hidden h-10 w-full hover:button-swap-away transition ease-in-out">
+        <div className="flex justify-center mt-10 relative inline-block object-contain overflow-hidden h-10 w-full hover:button-swap-away transition ease-in-out">
           <a
             href={`/artifact/history/${id}`}
             className="start-on absolute bg-white shadow text-blueGray-600 font-bold py-2 px-6 rounded-lg"

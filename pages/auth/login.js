@@ -89,11 +89,6 @@ export default function Login() {
                           </a>
                         </div>
                       </div>
-                      <img
-                        src="resartifact-diagram.png"
-                        className="px-2 py-2"
-                        alt="Displays use cases and flow of ResArtifact.">
-                    </img>
                     </div>
                   ) : (
                     // Login form
@@ -136,7 +131,11 @@ export default function Login() {
                 </div>
                 
               </div>
-              
+              <img
+                        src="resartifact_diagram.png"
+                        className="px-2 py-2"
+                        alt="Displays use cases and flow of ResArtifact.">
+                </img>
             </div>
             
           </div>

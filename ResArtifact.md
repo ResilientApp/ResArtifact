@@ -15,23 +15,22 @@ article_header:
 
 ---
 
-Arrayán stands as a revolutionary web application, seamlessly integrated with the Resilient DB blockchain fabric. Designed to empower industries, Arrayán facilitates comprehensive tracking of products, by-products, and their historical journey throughout the supply chain. The platform champions transparency, aiding food organizations in effortlessly visualizing information from farm to retail.
+ResVault is a novel decentralized tool that utilizes blockchain technology to track and store valuable artifact information securely. We have applied a blockchain-based distributed database, ResilientDB, for digital and physical artifact repositories for museums, auction houses,  institutions, and individuals. ResArtifact will be available for all users to review its transactions on a collection page displaying each artifact's name, image, and description. Each artifact will contain a ledger of all transactions that provides its precedence of location, date moved, and changes in condition.  This information is available for the public to learn about an artifact or determine whether a claimed artifact is valid and make an update.
 
-Our mission with Arrayán extends beyond mere tracking; we aim to redefine traceability for sustainability. Notably, the platform introduces a key feature allowing consumers and other industry sectors to claim food by-products - stems, peels, and seeds. This forward-thinking approach not only fosters transparency but also encourages the responsible use of by-products. This reclaimed data on generation times and methods becomes invaluable. It opens doors for scaling the utilization of these by-products, transforming them into raw materials for extracting valuable molecules for cosmetics and generating hydrogen - two prized assets in today's dynamic economy. Arrayán is not just a tool for tracking; it's a catalyst for sustainable innovation and resource optimization.
+Since each transaction is important in proving an artifact's validity, we must ensure that only authenticated users can add artifacts. Institutions or individuals that own artifacts will have access to a secure account that allows them to add new artifacts, view their private collections, and transfer artifacts. They will also be able to view the history of their individual artifacts. Without needing a login, a user can view the collection of all artifacts from all users and search for artifacts as well. This accessibility to both the general public and authorized users allows everyone to use the ResArtifact.
+
 
 
 <p style="text-align:center;">
-    <img src="/assets/images/arrayan/logo.png" alt="Logo"/>
+    <img src="/assets/images/resvault/logo.png" alt="Logo"/>
     <br>
-    <em>Figure 1. Picture describing Arrayán
+    <em>Figure 1. Picture describing ResArtifact
     </em>
 </p>
 
 ### Useful Links
-- Website is live at [https://arrayan.resilientdb.com/](https://arrayan.resilientdb.com/)
-- Code Repository - [https://github.com/ResilientApp/Arrayan](https://github.com/ResilientApp/Arrayan)
-- Presentation Slides - [https://github.com/apache/incubator-resilientdb-blog/blob/main/presentations/Arrayan.pdf](https://github.com/apache/incubator-resilientdb-blog/blob/main/presentations/Arrayan.pdf)
-- We have modified the existing ResilientDB-GraphQL APIs catering to the needs of a blockchain-based food supply chain and added a new API to fetch the products in the forked [repo](https://github.com/Amoolya-Reddy/ResilientDB-GraphQL).
+- Code Repository - [https://github.com/ResilientApp/ResArtifact](https://github.com/ResilientApp/ResArtifact)
+- Presentation Slides - 
 
 
 ### Problem Identified
@@ -108,7 +107,7 @@ Start the ResilientDB KV Service (Take a short break, folks! The first time migh
 ### Setup Crow HTTP server, SDK, and GraphQL server
 Clone the ResilientDB GraphQL repository:
     
-    git clone https://github.com/Amoolya-Reddy/ResilientDB-GraphQL
+    git clone https://github.com/ResilientDB-GraphQL
     
 Navigate into the ResilientDB-GraphQL directory:
     
@@ -159,7 +158,7 @@ Here is the link to setup [ResVault](https://blog.resilientdb.com/2023/09/21/Res
 
 
 
-### Setup Wallet
+### Setup MongoDB
 All you need to do is set up MongoDB, and don’t worry about the rest — the resilient-node-cache will take care of everything else for you!
 
 Refer to this guide to install MongoDB in 7 simple [steps](https://www.cherryservers.com/blog/install-mongodb-ubuntu-22-04)
@@ -177,8 +176,3 @@ Check if MongoDB is Running using :
 
 
 ### Contributions:
-Amoolya Gali: Designed the overall architecture of the application, translating requirements into technical functionalities. Led the development of the frontend, including UI/UX design and animations, and implemented the Ag-GraphQL wrapper to interface with the existing ResilientDB-GraphQL server, setting up all necessary APIs. Built the real-time dashboard, implemented Excel file parsing for constructing transactions, and managed interactions with Google Firestore by developing all Firestore APIs. Delivered an intuitive food supply chain tracking system and completed the end-to-end claim workflow.
-<br>
-Mariana Larrañaga: Defined the project scope and high-level requirements as the founder of Arrayan. Conducted market research, pitched the product, and maintained active interactions with wineries and farmers, incorporating their input into the product. Served as the product manager, ensuring user needs were integrated into the development process and shaping the overall vision of Arrayan.
-<br>
-Other Contributors: Shravani Shete, Manali Modi, Tarun Tiwari, Srishti Singh

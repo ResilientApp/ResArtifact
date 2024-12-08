@@ -29,7 +29,7 @@ Since each transaction is important in proving an artifact's validity, we must e
 
 ### Useful Links
 - Code Repository - [https://github.com/ResilientApp/ResArtifact](https://github.com/ResilientApp/ResArtifact)
-- Presentation Slides - [https://docs.google.com/presentation/d/1SRIOvvB1Q6AJXESoSLsloJ1OOTNwrJiL6jXSrmAEMBg/edit?usp=sharing]
+- Presentation Slides - [https://docs.google.com/presentation/d/1SRIOvvB1Q6AJXESoSLsloJ1OOTNwrJiL6jXSrmAEMBg/edit?usp=sharing](https://docs.google.com/presentation/d/1SRIOvvB1Q6AJXESoSLsloJ1OOTNwrJiL6jXSrmAEMBg/edit?usp=sharing)
 
 
 ### Problem Identified
@@ -112,6 +112,7 @@ To solve this problem we use blockchain technology, which has already been succe
     <em> Figure 9. Dashboard
     </em>
 </p>
+
 ### Inventory
 - Easy Addition Process: Allows users to easily add an artifact by inputting an artifact’s information: name, unique ID, place of origin, origin year, artifact description, condition, curator ID, museum ID, recipient’s public key, and an image URL.
 

@@ -154,7 +154,22 @@ To solve this problem we use blockchain technology, which has already been succe
 </p>
 
 - Individual Artifact View: Shows all the information stored for an artifact.
+
+<p align="center">
+    <img src="/public/img/readme_img/artifact_page.jpeg" alt="Logo"/>
+    <br>
+    <em> Figure 14. Individual Artifact Information Page
+    </em>
+</p>
+
 - History: Shows the history of an artifact with all past information about it.
+
+<p align="center">
+    <img src="/public/img/readme_img/transaction_history.jpeg" alt="Logo"/>
+    <br>
+    <em> Figure 15. Artifact Transaction History
+    </em>
+</p>
 ### Demo Video
 
 

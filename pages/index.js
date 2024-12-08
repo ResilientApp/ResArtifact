@@ -13,10 +13,10 @@ export default function Index() {
 
   return (<>
     <IndexNavbar/>
-    <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
+    <section className="header relative pt-16 items-center flex h-screen max-h-860-px mt-6">
       <div className="container mx-auto items-center flex flex-wrap">
         <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
-          <div className="pt-32 sm:pt-0">
+          <div className="pt-32 sm:pt-0 px-6">
             <h2 className="font-semibold text-4xl text-blueGray-600">
               ResArtifact - A secure blockchain registry for historical artifacts.
             </h2>
@@ -61,7 +61,7 @@ export default function Index() {
         </div>
       </div>
       <img
-          className="absolute top-94-px b-auto right-0 pt-16 -mt-48 sm:mt-0 w-5/12 h-auto opacity-50"
+          className="absolute top-94-px b-auto right-0 pt-16 -mt-48 sm:mt-0 w-5/12 h-auto opacity-50 mr-4"
           src="/img/headergraphic.png"
           alt="..."
         />
@@ -290,15 +290,15 @@ export default function Index() {
                 <Link href="https://github.com/vuamy" legacyBehavior>
                   <div className="hover:-mt-4 relative flex flex-col items-center min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
                     <img
-                      src="img/stockprofile.png"
-                      className="rounded-full w-1/2 mt-6 shadow bg-blueGray-200"
+                      src="img/vuamy-github.png"
+                      className="w-1/2 mt-6 shadow bg-blueGray-200"
                       alt="Stock image.">
                     </img>
                     <p className="text-2xl mt-6 font-semibold">
                       Amy Vu
                     </p>
-                    <p className="text-lg text-left p-5 mb-4">
-                      [ Description on what participation for the project ]
+                    <p className="text-lg text-center p-5 mb-4">
+                      Lead frontend developer, UI designer
                     </p>
                   </div>
                 </Link>
@@ -308,15 +308,15 @@ export default function Index() {
                 <Link href="https://github.com/almyee" legacyBehavior>
                   <div className="hover:-mt-4 relative flex flex-col items-center min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
                     <img
-                      src="img/stockprofile.png"
-                      className="rounded-full w-1/2 mt-6 shadow bg-blueGray-200"
+                      src="img/almyee-github.png"
+                      className="w-1/2 mt-6 shadow bg-blueGray-200"
                       alt="Stock image.">
                     </img>
                     <p className="text-2xl mt-6 font-semibold">
                       Alyssa Yee
                     </p>
-                    <p className="text-lg text-left p-5 mb-4">
-                      [ Description on what participation for the project ]
+                    <p className="text-lg text-center p-5 mb-4">
+                      Team leader, Project planning and logistics, Diagram designer
                     </p>
                   </div>
                 </Link>
@@ -326,15 +326,15 @@ export default function Index() {
                 <Link href="https://github.com/GURJASH" legacyBehavior>
                   <div className="hover:-mt-4 relative flex flex-col items-center min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
                     <img
-                      src="img/stockprofile.png"
-                      className="rounded-full w-1/2 mt-6 shadow bg-blueGray-200"
+                      src="img/GURJASH-github.png"
+                      className="w-1/2 mt-6 shadow bg-blueGray-200"
                       alt="Stock image.">
                     </img>
                     <p className="text-2xl mt-6 font-semibold">
                       Guransh Singh Anand
                     </p>
-                    <p className="text-lg text-left p-5 mb-4">
-                      [ Description on what participation for the project ]
+                    <p className="text-lg text-center p-5 mb-4">
+                      Lead backend developer, Supporting frontend developer
                     </p>
                   </div>
                 </Link>
@@ -343,15 +343,15 @@ export default function Index() {
                 <Link href="https://github.com/alexgao2" legacyBehavior>
                   <div className="hover:-mt-4 relative flex flex-col items-center min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
                     <img
-                      src="img/stockprofile.png"
-                      className="rounded-full w-1/2 mt-6 shadow bg-blueGray-200"
+                      src="img/alexgao2-github.png"
+                      className="w-1/2 mt-6 shadow bg-blueGray-200"
                       alt="Stock image.">
                     </img>
                     <p className="text-2xl mt-6 font-semibold">
                       Alex Gao
                     </p>
-                    <p className="text-lg text-left p-5 mb-4">
-                      [ Description on what participation for the project ]
+                    <p className="text-lg text-center p-5 mb-4">
+                      Supporting frontend developer, Diagram designer
                     </p>
                   </div>
                 </Link>
@@ -360,15 +360,15 @@ export default function Index() {
                 <Link href="https://github.com/Zackory281" legacyBehavior>
                   <div className="hover:-mt-4 relative flex flex-col items-center min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
                     <img
-                      src="img/stockprofile.png"
-                      className="rounded-full w-1/2 mt-6 shadow bg-blueGray-200"
+                      src="img/Zackory281-github.png"
+                      className="w-1/2 mt-6 shadow bg-blueGray-200"
                       alt="Stock image.">
                     </img>
                     <p className="text-2xl mt-6 font-semibold">
                       Zijin Cui
                     </p>
-                    <p className="text-lg text-left p-5 mb-4">
-                      [ Description on what participation for the project ]
+                    <p className="text-lg text-center p-5 mb-4">
+                      Data collection
                     </p>
                   </div>
                 </Link>

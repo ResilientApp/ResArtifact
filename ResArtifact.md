@@ -38,12 +38,21 @@ Our market opportunity is to provide art museums and collectors with a way to ve
 
 
 ### Solution
-
+To solve this problem we use blockchain technology, which has already been successfully applied in similar fields such as land registries. This improves the security of the database by preserving essential information about all known artifacts. A registrar for artifacts is extremely valuable as the documentation for an artifact’s history is directly tied to its value. All entries into the database must be authenticated and data will not be lost thanks to the redundancy of all distributed nodes owning the most current ledger. Institutions may purchase or trade artifacts without worry of fakes thanks to the ledger’s information on the validity of the piece as well as any changes in ownership. Art enthusiasts may also know whether the original artifact is available for public viewing.
 
 
 
 ### Technology Stack
+-React.js 
+-Backend: ResilientDb GraphQL server, MongoDB
+-Database: ResilientDB
 
+<p style="text-align:center;">
+    <img src="/assets/images/resvault/logo.png" alt="Logo"/>
+    <br>
+    <em>Figure 1. Picture describing ResArtifact
+    </em>
+</p>
 
 
 ### Architecture

@@ -34,7 +34,7 @@ Since each transaction is important in proving an artifact's validity, we must e
 
 
 ### Problem Identified
-
+Our market opportunity is to provide art museums and collectors with a way to verify and conduct transactions on valuable art pieces. We believe that there currently is no decentralized platform to host transactions for art pieces and that ResArtifact will provide both security to this market. Furthermore, there will be general interest from art enthusiasts who won’t have access to creating and logging transactions but will be able to search for artifacts and view them.
 
 
 ### Solution

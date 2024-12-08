@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ResVaultSDK from "resvault-sdk";
+import { useRouter } from "next/router";
 import NotificationModal from "pages/NotificationModal";
 import TransactionLayout from "layouts/Transaction.js";
 
@@ -126,12 +127,13 @@ const TransactionForm = ({ onLogout, token }) => {
       setShowModal(true);
     }
   };
+const router = useRouter();
+ const handleCloseModal = () => {
+ 
+  setShowModal(false); 
+  router.push("/auth/login"); 
+};
 
-  const handleLogoutClick = () => {
-    onLogout();
-  };
-
-  const handleCloseModal = () => setShowModal(false);
 
   return (
     <>
@@ -342,14 +344,15 @@ const TransactionForm = ({ onLogout, token }) => {
         </div>
       </div>
 
-      {/* Modal */}
-      {showModal && (
-        <NotificationModal
-          title={modalTitle}
-          message={modalMessage}
-          onClose={handleCloseModal}
-        />
-      )}
+      <NotificationModal
+        show={showModal}
+        title={modalTitle}
+        message={modalMessage}
+        onClose={handleCloseModal}
+        style={{ zIndex: 1050}}
+      />
+   
+      
     </>
   );
 };

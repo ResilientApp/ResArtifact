@@ -10,7 +10,8 @@ export default function CombinedPage({ allArtifactsData }) {
   const [error, setError] = useState(null);
   const [searchCriteria, setSearchCriteria] = useState("name");
   const [artifactSearch, setArtifactSearch] = useState("");
-  
+  const [visibleCards, setVisibleCards] = useState([]); 
+
   const fetchTransactions = async () => {
     setLoading(true);
     setError(null);
@@ -22,6 +23,13 @@ export default function CombinedPage({ allArtifactsData }) {
       }
       const data = await response.json();
       setTransactions(data.transactions);
+
+
+      data.transactions.forEach((_, index) => {
+        setTimeout(() => {
+          setVisibleCards((prev) => [...prev, index]);
+        }, index * 1000); 
+      });
     } catch (error) {
       console.error('Failed to fetch transactions:', error);
       setError('Failed to fetch transactions. Please try again later.');
@@ -38,7 +46,6 @@ export default function CombinedPage({ allArtifactsData }) {
     return artifact.params.name.toLowerCase().includes(artifactSearch.toLowerCase());
   });
 
-  
   const filteredTransactions = transactions.filter(txn => {
     const txnString = JSON.stringify(txn);
     const nameMatch = txnString.match(/"name":"(.*?)"/);
@@ -113,7 +120,7 @@ export default function CombinedPage({ allArtifactsData }) {
 
           <div className="w-full">
             <div className="flex flex-wrap justify-start">
-             
+            
               {loading && <p className="text-center text-blueGray-700">Loading transactions...</p>}
               {error && <p className="text-center text-red-500">{error}</p>}
               {!loading && filteredTransactions.length === 0 && <p className="text-center text-blueGray-700">No transactions found.</p>}
@@ -128,20 +135,23 @@ export default function CombinedPage({ allArtifactsData }) {
                 const idMatch = txnString.match(/"id":"(.*?)"/);
                 const id = idMatch ? idMatch[1] : "Unknown ID";
 
+                const isVisible = visibleCards.includes(index);
+                const animationStyle = isVisible
+                  ? { opacity: 1, transform: "translateY(0)", transition: "all 0.5s ease-out" }
+                  : { opacity: 0, transform: "translateY(20px)" };
+
                 return (
-                  <div key={index} className="px-4 mb-4 w-auto">
+                  <div key={index} className="px-4 mb-4 w-auto" style={animationStyle}>
                     <a href={`/artifact/${id}`}>
                       <CardArtifact 
                         params={{
                           id: id,     
                           name: name,
                           year: originYear,
-                          
                           image: url 
                         }} 
                       />
                     </a>
-                   
                   </div>
                 );
               })}
@@ -155,7 +165,6 @@ export default function CombinedPage({ allArtifactsData }) {
   );
 }
 
-// Static props to provide artifacts data (Remove the static example artifacts)
 export async function getStaticProps() {
   return {
     props: {

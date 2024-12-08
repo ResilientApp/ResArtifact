@@ -3,7 +3,6 @@ import Link from "next/link";
 import { createPopper } from "@popperjs/core";
 
 const SortByDropdown = () => {
-  // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();

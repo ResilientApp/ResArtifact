@@ -5,10 +5,10 @@ export default function Transactions() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visibleItems, setVisibleItems] = useState([]); 
 
   const publicKey = '8QkgpLEShfkMEruc5SubiRPN3JagYWLvFAUG9Jy3bay4';
 
-  // Fetch transactions on component mount
   useEffect(() => {
     const fetchTransactions = async () => {
       setLoading(true);
@@ -21,6 +21,14 @@ export default function Transactions() {
         }
         const data = await response.json();
         setTransactions(data.transactions);
+
+     
+        const delays = data.transactions.map((_, index) => index * 1750); 
+        delays.forEach((delay, index) => {
+          setTimeout(() => {
+            setVisibleItems((prev) => [...prev, index]);
+          }, delay);
+        });
       } catch (error) {
         console.error('Failed to fetch transactions:', error);
         setError('Failed to fetch transactions. Please try again later.');
@@ -38,7 +46,7 @@ export default function Transactions() {
     const id = idMatch ? idMatch[1] : null;
 
     if (id) {
-      // Redirect to the new page in the same tab
+      
       window.location.href = `/auth/${id}`;
     } else {
       console.error("Transaction ID not found");
@@ -57,12 +65,10 @@ export default function Transactions() {
           <div className="text-center w-full text-red-500">{error}</div>
         )}
 
-     
         {!loading && transactions.length === 0 && (
           <div className="text-center w-full">No transactions found.</div>
         )}
 
-       
         {!loading && transactions.length > 0 && transactions.map((txn, index) => {
           const txnString = JSON.stringify(txn);
 
@@ -90,53 +96,58 @@ export default function Transactions() {
           const url = imageMatch ? imageMatch[1] : "Unknown Museum";
           const date = dateMatch ? dateMatch[1] : "Unknown Date";
 
+          const getRandomLightColor = () => {
+            const lightColors = ['#87CEFA'];
+            const randomIndex = Math.floor(Math.random() * lightColors.length);
+            return lightColors[randomIndex];
+          };
 
-	const getRandomLightColor = () => {
-  
-  const lightColors = [
-    '#87CEFA' 
-    
-     
-  ];
-  const randomIndex = Math.floor(Math.random() * lightColors.length);
-  return lightColors[randomIndex];
-};
+          
+          const isVisible = visibleItems.includes(index);
+          const animationStyle = isVisible
+            ? { transform: "translateY(0)", opacity: 1, transition: "all 0.5s ease-out" }
+            : { transform: "translateY(20px)", opacity: 0 };
+
           return (
-            <div key={index} 
-            className="relative flex flex-col py-6 px-2 items-center min-w-0 break-words w-full lg:w-4/12 mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transition-transform transform hover:scale-105 hover:shadow-2xl hover:rotate-2 border border-solid border-lightBlue-200 border-5" style={{ backgroundColor: getRandomLightColor() }}>
-              
-            <div className="text-center mb-2 ">
-              <h2 className="text-2xl font-bold text-black mt-2">{name}</h2>
-              <img
-                className="max-h-300-px max-w-300-px rounded-lg shadow-lg mt-6 mb-2"
-                src={url || '/default-image.jpg'}
-                alt="Artifact Image"
-              />
-            </div>
-           
-            
-             <div className="px-2 py-2 flex flex-col items-center text-center">
-  <p className="text-black break-words">
-    <strong className="font-bold">Unique ID :</strong> {uniqueid}
-  </p>
-  <p className="text-black break-words">
-    <strong className="font-bold">Origin Place :</strong> {origin}
-  </p>
-  <p className="text-black break-words">
-    <strong className="font-bold">Origin Year :</strong> {year}
-  </p>
-  <p className="text-black break-words">
-    <strong className="font-bold">Description :</strong> {description}
-  </p>
-  <p className="text-black break-words">
-    <strong className="font-bold">Condition :</strong> {condition}
-  </p>
-  <p className="text-black break-words">
-    <strong className="font-bold">Acquired On :</strong> {date}
-  </p>
-</div>
+            <div
+              key={index}
+              style={{
+                ...animationStyle,
+                backgroundColor: getRandomLightColor(),
+              }}
+              className="relative flex flex-col py-6 px-2 items-center min-w-0 break-words w-full lg:w-4/12 mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0 transition-transform transform hover:scale-105 hover:shadow-2xl hover:rotate-2 border border-solid border-lightBlue-200 border-5"
+            >
+              <div className="text-center mb-2">
+                <h2 className="text-2xl font-bold text-black mt-2">{name}</h2>
+                <img
+                  className="max-h-300-px max-w-300-px rounded-lg shadow-lg mt-6 mb-2"
+                  src={url || '/default-image.jpg'}
+                  alt="Artifact Image"
+                />
+              </div>
 
-                <button
+              <div className="px-2 py-2 flex flex-col items-center text-center">
+                <p className="text-black break-words">
+                  <strong className="font-bold">Unique ID :</strong> {uniqueid}
+                </p>
+                <p className="text-black break-words">
+                  <strong className="font-bold">Origin Place :</strong> {origin}
+                </p>
+                <p className="text-black break-words">
+                  <strong className="font-bold">Origin Year :</strong> {year}
+                </p>
+                <p className="text-black break-words">
+                  <strong className="font-bold">Description :</strong> {description}
+                </p>
+                <p className="text-black break-words">
+                  <strong className="font-bold">Condition :</strong> {condition}
+                </p>
+                <p className="text-black break-words">
+                  <strong className="font-bold">Acquired On :</strong> {date}
+                </p>
+              </div>
+
+              <button
                 onClick={() => handleTransfer(txn)}
                 className="mt-4 bg-blueGray-700 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blueGray-500 transition ease-inl"
               >

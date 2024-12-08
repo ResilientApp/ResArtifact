@@ -3,7 +3,7 @@ import ResVaultSDK from 'resvault-sdk';
 import NotificationModal from './NotificationModal';
 
 const TransactionForm = ({ onLogout, token }) => {
-  // State variables for each required JSON field, initialized as empty
+ 
   const [name, setName] = useState('');
   const [curatorID, setCuratorID] = useState('');
   const [museumID, setMuseumID] = useState('');
@@ -89,7 +89,7 @@ const TransactionForm = ({ onLogout, token }) => {
       return;
     }
 
-    // Construct the JSON object with only required fields
+
     const parsedData = {
       name,
       curatorID,
@@ -101,7 +101,7 @@ const TransactionForm = ({ onLogout, token }) => {
         type: 'commit',
         direction: 'commit',
         amount: fixedAmount,
-        data: parsedData,  // Send the simplified JSON data
+        data: parsedData,  
         recipient: recipient,
       });
     } else {

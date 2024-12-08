@@ -1,6 +1,6 @@
 import React from "react";
 
-// components
+
 
 export default function CardPageVisits() {
   return (
@@ -24,7 +24,7 @@ export default function CardPageVisits() {
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
-          {/* Projects table */}
+         
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>

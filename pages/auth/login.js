@@ -125,6 +125,10 @@ export default function Login() {
                         {isLoadingAfterLogin && <Loader />}
                         {!isLoadingAfterLogin && <Login onLogin={handleLogin} />}
                       </div>
+
+                      <a
+                        href="/auth/register"
+                        className="text-xs text-blueGray-400 hover:text-blueGray-500 uppercase font-bold text-center">No account? Register here.</a>
                     </form>
                   )}
                   

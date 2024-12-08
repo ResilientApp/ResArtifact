@@ -53,7 +53,8 @@ export default function CombinedPage({ allArtifactsData }) {
   return (
     <>
       <IndexNavbar fixed />
-      <section className="relative pt-20 px-6 min-h-screen pb-20" style={{backgroundColor: '#FCE9D4'}}>
+      <section className="relative pt-20 px-6 min-h-screen pb-20" style={{backgroundColor: '#FFFFFF'}}>
+      
         <div className="pb-32 pt-20 text-left bg-full pl-10" style={{
             background: "linear-gradient(to bottom, white, transparent), url('/img/ancient-ruins.jpg')",
             backgroundSize: 'cover',

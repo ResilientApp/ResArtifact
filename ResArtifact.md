@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: article alyssa
 title: ResArtifact - Resilient based Artifact Repository
 author: Guransh
 tags: ResilientDb Full-Stack ResArtifact

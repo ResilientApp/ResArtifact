@@ -20,12 +20,11 @@ ResVault is a novel decentralized tool that utilizes blockchain technology to tr
 Since each transaction is important in proving an artifact's validity, we must ensure that only authenticated users can add artifacts. Institutions or individuals that own artifacts will have access to a secure account that allows them to add new artifacts, view their private collections, and transfer artifacts. They will also be able to view the history of their individual artifacts. Without needing a login, a user can view the collection of all artifacts from all users and search for artifacts as well. This accessibility to both the general public and authorized users allows everyone to use the ResArtifact.
 
 
-<div style="text-align:center;">
-    <p style="text-align:center;">
+<div style="margin: 0 auto; text-align: center;">
+    <p>
         <img src="/public/img/resartifact_diagram.png" alt="Logo"/>
         <br>
-        <em>Figure 1. Picture describing ResArtifact
-        </em>
+        <em>Figure 1. Picture describing ResArtifact</em>
     </p>
 </div>
 

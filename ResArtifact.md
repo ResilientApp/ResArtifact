@@ -29,7 +29,7 @@ Since each transaction is important in proving an artifact's validity, we must e
 
 ### Useful Links
 - Code Repository - [https://github.com/ResilientApp/ResArtifact](https://github.com/ResilientApp/ResArtifact)
-- Presentation Slides - 
+- Presentation Slides - [https://docs.google.com/presentation/d/1SRIOvvB1Q6AJXESoSLsloJ1OOTNwrJiL6jXSrmAEMBg/edit?usp=sharing]
 
 
 ### Problem Identified
@@ -268,3 +268,6 @@ Check if MongoDB is Running using :
 
 
 ### Contributions:
+
+The team members of this project are Alyssa Yee, Amy Vu, Alexander Gao, Zijin Chui, Guransh Anand. Alyssa Yee is the leader of our project and has handled submitting all assignments and backend transactions. Amy is working on frontend development and connecting the frontend application to the backend. Alexander is supporting frontend development and strategic planning for features of the application. Guransh is managing backend development which includes setting up transactions and making custom transactions required for this application and testing the functionality on a sample frontend. Zijin Qui is gathering and organizing reference materials needed for this project.
+

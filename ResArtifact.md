@@ -22,7 +22,7 @@ Since each transaction is important in proving an artifact's validity, we must e
 
 
 <p style="text-align:center;">
-    <img src="/assets/images/resvault/logo.png" alt="Logo"/>
+    <img src="/public/img/resartifact_diagram.png" alt="Logo"/>
     <br>
     <em>Figure 1. Picture describing ResArtifact
     </em>

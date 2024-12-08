@@ -20,10 +20,10 @@ ResVault is a novel decentralized tool that utilizes blockchain technology to tr
 Since each transaction is important in proving an artifact's validity, we must ensure that only authenticated users can add artifacts. Institutions or individuals that own artifacts will have access to a secure account that allows them to add new artifacts, view their private collections, and transfer artifacts. They will also be able to view the history of their individual artifacts. Without needing a login, a user can view the collection of all artifacts from all users and search for artifacts as well. This accessibility to both the general public and authorized users allows everyone to use the ResArtifact.
 
 
-<p style="align="center">
-    <img src="/public/img/resartifact_diagram.png" alt="Logo"/>
+<p align="center">
+    <img src="/public/img/readme_img/resartifact_overview.png" alt="Logo"/>
     <br>
-    <em>Figure 1. Picture describing ResArtifact</em>  
+    <em>Figure 1. Image describing ResArtifact</em>  
 </p>
 
 
@@ -42,34 +42,118 @@ To solve this problem we use blockchain technology, which has already been succe
 
 
 ### Technology Stack
--React.js 
--Backend: ResilientDb GraphQL server, MongoDB
--Database: ResilientDB
+- React.js 
+- Backend: ResilientDb GraphQL server, MongoDB
+- Database: ResilientDB
 
-<p style="text-align:center;">
-    <img src="/assets/images/resvault/logo.png" alt="Logo"/>
+<p align="center">
+    <img src="/public/img/readme_img/technology_stack.png" alt="Logo"/>
     <br>
-    <em>Figure 1. Picture describing ResArtifact
+    <em> Figure 2. Technology Stack of ResArtifact
     </em>
 </p>
 
 
 ### Architecture
 
+<p align="center">
+    <img src="/public/img/readme_img/architecture_add.png" alt="Logo"/>
+    <br>
+    <em> Figure 3. Sequence Diagram of Adding an Artifact
+    </em>
+</p>
+
+<p align="center">
+    <img src="/public/img/readme_img/architecture_transfer.png" alt="Logo"/>
+    <br>
+    <em> Figure 4. Sequence Diagram of Transferring an Artifact
+    </em>
+</p>
+
+<p align="center">
+    <img src="/public/img/readme_img/high_level_design.png" alt="Logo"/>
+    <br>
+    <em> Figure 5. High-Level Design of Artifact
+    </em>
+</p>
 
 
 ### Features and User Guide
 
 ### Home Page
+<p align="center">
+    <img src="/public/img/readme_img/home.png" alt="Logo"/>
+    <br>
+    <em> Figure 6. Home Page
+    </em>
+</p>
 
+<p align="center">
+    <img src="/public/img/readme_img/offerings.png" alt="Logo"/>
+    <br>
+    <em> Figure 7. What we offer through ResArtifact
+    </em>
+</p>
 
+- Getting Started: To access the dashboard, users need to log in using Resvault. After a user is authenticated, they will be brought to the Dashboard page.
 
+<p align="center">
+    <img src="/public/img/readme_img/login.png" alt="Logo"/>
+    <br>
+    <em> Figure 8. Login Page
+    </em>
+</p>
+
+- Straightforward actions: This Dashboard gives users to option to add a new artifact or view their personal collection.
+  
+<p align="center">
+    <img src="/public/img/readme_img/dashboard.png" alt="Logo"/>
+    <br>
+    <em> Figure 9. Dashboard
+    </em>
+</p>
 ### Inventory
-
+- Easy Addition Process: Allows users to easily add an artifact by inputting an artifact’s information: name, unique ID, place of origin, origin year, artifact description, condition, curator ID, museum ID, recipient’s public key, and an image URL.
 
 ### Search
 
+<p align="center">
+    <img src="/public/img/readme_img/add_artifact.png" alt="Logo"/>
+    <br>
+    <em> Figure 10. Add Artifact Page
+    </em>
+</p>
 
+- View Personal Inventory: Shows an exclusive inventory of artifacts that only the user has added. Users can transfer any artifact in their personal inventory to another user.
+
+<p align="center">
+    <img src="/public/img/readme_img/artifact_examples.png" alt="Logo"/>
+    <br>
+    <em> Figure 11. View Artifact Page
+    </em>
+</p>
+
+- Seamless Transfer: In case a user wants to transfer an artifact to another user, they can update the artifact's information and easily send it.
+
+<p align="center">
+    <img src="/public/img/readme_img/transfer_artifact.png" alt="Logo"/>
+    <br>
+    <em> Figure 12. Transfer Artifact Page
+    </em>
+</p>
+
+
+- Inventory View: Shows a detailed display of updated inventory information on all artifacts that any user has added.
+
+<p align="center">
+    <img src="/public/img/readme_img/collection.png" alt="Logo"/>
+    <br>
+    <em> Figure 13. Artifact Collection Page
+    </em>
+</p>
+
+- Individual Artifact View: Shows all the information stored for an artifact.
+- History: Shows the history of an artifact with all past information about it.
 ### Demo Video
 
 
